@@ -1,0 +1,87 @@
+WriteAccountsAct {
+    del: "Deletie account"
+}
+
+WriteTrnsAct {
+    del: "Delete transaction"
+    create: "Create transaction"
+    update: "Update transaction"
+}
+
+WriteAccountsAct.del -> UpdateAccCacheAct.onAccDel: Triggers
+WriteTrnsAct.del -> UpdateAccCacheAct.onTrnUpdate.in.del: Triggers
+WriteTrnsAct.create -> UpdateAccCacheAct.onTrnUpdate.in.cr: Triggers
+WriteTrnsAct.update -> UpdateAccCacheAct.onTrnUpdate.in.upd: Triggers
+
+UpdateAccCacheAct {
+    onAccDel: "On: Account deleted" {
+        op: "Invalidate the cache for that account cuz it's deleted." {
+            fill: red
+            font-color: white
+        }
+    }
+
+    onTrnUpdate: "On: Transaction updated/deleted" {
+        in: Input {
+            del: DeleteTrnInfo {
+                shape: class
+                time: TrnTime
+            }
+
+            cr: CreateTrnInfo {
+                shape: class
+                time: TrnTime
+            }
+
+            upd: UpdateTrnInfo {
+                shape: class
+                oldTime: TrnTime
+                time: TrnTime
+            }
+        }
+        read: "Cache entry in DB?"
+        read_null: "Do nothing." {
+            fill: green
+            font-color: white
+        }
+        read_exists: "Is the cache still valid?" {
+            a: "Is the updated transaction after the cache, in the future?" {
+                "trn.time > cache.time?"
+            }
+            b: "Was the updated transaction moved from the past to the future?" {
+                "trn.oldTime == null || trn.oldTime < cache.time?"
+            }
+
+            a -> b: AND
+        }
+        trn_newer: "It's okay. The cache is valid - do nothing." {
+            fill: green
+            font-color: white
+        }
+        trn_older: "Delete!!! The cache is invalid!" {
+            fill: red
+            font-color: white
+        }
+
+        in -> read
+        read --> read_null: "Nope"
+        read --> read_exists: "Found!"
+
+        read_exists --> trn_newer: "True"
+        read_exists --> trn_older: "False"
+    }
+}
+
+db: Database {
+    shape: cylinder
+
+    accounts_cache: {
+        shape: sql_table
+        
+        account_id: String { constraint: primary_key }
+        other: Doesn't matter
+    }
+}
+
+UpdateAccCacheAct.onAccDel.op -> db.accounts_cache: "Delete by account.id"
+UpdateAccCacheAct.onTrnUpdate.trn_older --> db.accounts_cache: "Delete by trn.accountId"
