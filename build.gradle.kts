@@ -7,10 +7,6 @@ plugins {
     // ./gradlew dependencyUpdates // Simple report in the console
     // ./gradlew dependencyUpdates -DoutputFormatter=html,json,xml // Report in console & generate files accordingly
     id("com.github.ben-manes.versions") version "0.39.0"
-
-    // Kotest Plugin
-    // https://github.com/kotest/kotest-gradle-plugin
-    id("io.kotest") version "0.3.8"
 }
 
 tasks {
@@ -44,4 +40,13 @@ fun isNonStable(version: String): Boolean {
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
+}
+
+tasks.register("printPlugins") {
+    doLast {
+        println("Plugins applied in project '${project.name}':")
+        project.plugins.forEach {
+            println(it::class.java.name)
+        }
+    }
 }

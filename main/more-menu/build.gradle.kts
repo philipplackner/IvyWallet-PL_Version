@@ -1,10 +1,12 @@
 import com.ivy.buildsrc.Hilt
 
-apply<com.ivy.buildsrc.IvyComposePlugin>()
-
 plugins {
     `android-library`
+
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
+
+apply<com.ivy.buildsrc.IvyComposePlugin>()
 
 dependencies {
     Hilt()

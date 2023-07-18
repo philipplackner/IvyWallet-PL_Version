@@ -8,7 +8,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
-    id("io.kotest")
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
 
 android {

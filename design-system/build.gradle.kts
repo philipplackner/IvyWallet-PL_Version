@@ -3,14 +3,16 @@ import com.ivy.buildsrc.Compose
 import com.ivy.buildsrc.Hilt
 import com.ivy.buildsrc.Lifecycle
 
-apply<com.ivy.buildsrc.IvyComposePlugin>()
-
 plugins {
     `android-library`
     id("org.jetbrains.kotlin.android")
     id("kotlin-android")
     id("kotlin-kapt")
+
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
+
+apply<com.ivy.buildsrc.IvyComposePlugin>()
 
 android {
     defaultConfig {

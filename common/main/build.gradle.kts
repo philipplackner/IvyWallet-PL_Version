@@ -1,11 +1,13 @@
 import com.ivy.buildsrc.*
 
-apply<com.ivy.buildsrc.IvyPlugin>()
-
 plugins {
     `android-library`
     `kotlin-android`
+
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
+
+apply<com.ivy.buildsrc.IvyPlugin>()
 
 dependencies {
     api(project(":core:data-model"))
@@ -14,7 +16,6 @@ dependencies {
     Hilt()
     Kotlin(api = true)
     Coroutines(api = true)
-    FunctionalProgramming(api = true)
     Timber(api = true)
 
     Testing(

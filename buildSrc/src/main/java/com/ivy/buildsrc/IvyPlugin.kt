@@ -13,21 +13,11 @@ abstract class IvyPlugin : Plugin<Project> {
         addKotlinCompilerArgs(project)
         setProjectSdkVersions(project)
 
-        kotest(project)
         // Robolectric doesn't integrate well with JUnit5 and Kotest
 //        robolectric(project)
         androidTest(project)
         lint(project)
         kspSourceSets(project)
-    }
-
-    private fun kotest(project: Project) {
-        val library = project.androidLibrary()
-        library.testOptions {
-            unitTests.all {
-                it.useJUnitPlatform()
-            }
-        }
     }
 
 //    private fun robolectric(project: Project) {
@@ -57,11 +47,10 @@ abstract class IvyPlugin : Plugin<Project> {
             plugin("kotlin-android")
             plugin("kotlin-kapt")
             plugin("dagger.hilt.android.plugin")
-            plugin("io.kotest")
             plugin("com.google.devtools.ksp")
 
             //TODO: Enable if we migrate to kotlinx serialization
-//            plugin("kotlinx-serialization")
+    //            plugin("kotlinx-serialization")
         }
     }
 

@@ -75,15 +75,8 @@ object Versions {
     const val composeCoil = "2.2.2"
     // endregion
 
-    //https://arrow-kt.io/docs/quickstart/
-    const val arrow: String = "1.1.5"
-
-    //https://kotest.io/
-    const val kotest: String = "5.4.2"
-
-    //https://github.com/kotest/kotest-extensions-arrow
-    const val kotestArrow = "1.3.0"
-    const val junitJupiter: String = "5.8.2"
+    const val junitJupiter: String = "5.9.3"
+    const val junit5GradlePlugin = "1.9.3.0"
 
     //https://developer.android.com/training/dependency-injection/hilt-android
     //WARNING: Update hilt gradle plugin from buildSrc
@@ -163,6 +156,10 @@ object Versions {
     const val testCore = "1.4.0"
     const val testJunitExt = "1.1.3"
     const val testRunner = "1.4.0"
+
+    // AssertK
+    const val assertK = "0.26.1"
+
     // endregion
 }
 
@@ -459,38 +456,23 @@ fun DependencyHandler.Timber(api: Boolean) {
     dependency("com.jakewharton.timber:timber:${Versions.timber}", api = api)
 }
 
-fun DependencyHandler.FunctionalProgramming(api: Boolean) {
-    Arrow(api)
-}
-
 fun DependencyHandler.RealmDb() {
     implementation("io.realm.kotlin:library-base:${Versions.realm}")
 }
 
-/**
- * Functional Programming with Kotlin
- */
-fun DependencyHandler.Arrow(
-    api: Boolean
-) {
-    dependency(platform("io.arrow-kt:arrow-stack:${Versions.arrow}"), api = api)
-    dependency("io.arrow-kt:arrow-core", api = api)
-    dependency("io.arrow-kt:arrow-fx-coroutines", api = api)
-    dependency("io.arrow-kt:arrow-fx-stm", api = api)
+fun DependencyHandler.JUnit5() {
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiter}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${Versions.junitJupiter}")
+}
 
-    // Optics
-    dependency("io.arrow-kt:arrow-optics", api = api)
-    ksp("io.arrow-kt:arrow-optics-ksp-plugin:${Versions.arrow}")
+fun DependencyHandler.AssertK() {
+    testImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
 }
 
 fun DependencyHandler.Testing(
     commonTest: Boolean = true,
     commonAndroidTest: Boolean = true
 ) {
-    Kotest()
-    // Robolectric doesn't integrate well with JUnit5 and Kotest
-//    Robolectric(api = false)
-
     if (commonTest) {
         testImplementation(project(":common:test"))
     }
@@ -516,41 +498,6 @@ fun DependencyHandler.AndroidXTest(
 
     // To use the androidx.test.runner APIs
     dependency("androidx.test:runner:${Versions.testRunner}")
-}
-
-/**
- * Kotlin Property-based testing
- */
-fun DependencyHandler.Kotest() {
-    val api = false //TODO: Kotest API does not work
-    //junit5 is required!
-    testDependency("org.junit.jupiter:junit-jupiter:${Versions.junitJupiter}", api = api)
-    testDependency("io.kotest:kotest-runner-junit5:${Versions.kotest}", api = api)
-
-    testDependency("io.kotest:kotest-assertions-core:${Versions.kotest}", api = api)
-    androidTestDependency("io.kotest:kotest-assertions-core:${Versions.kotest}", api = api)
-
-    testDependency("io.kotest:kotest-property:${Versions.kotest}", api = api)
-    testDependency("io.kotest:kotest-framework-datatest:${Versions.kotest}", api = api)
-    testDependency("io.kotest:kotest-framework-api-jvm:${Versions.kotest}", api = api)
-    testImplementation("io.kotest:kotest-framework-engine-jvm:${Versions.kotest}")
-
-    //otherwise Kotest doesn't work...
-    testDependency("org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}", api = api)
-
-
-    // Kotest - Arrow extensions
-    val kotestArrow = Versions.kotestArrow
-    testDependency(
-        "io.kotest.extensions:kotest-assertions-arrow:$kotestArrow", api = api
-    )
-    testDependency(
-        "io.kotest.extensions:kotest-assertions-arrow-fx-coroutines:$kotestArrow",
-        api = api
-    )
-    testDependency(
-        "io.kotest.extensions:kotest-property-arrow:$kotestArrow", api = api
-    )
 }
 
 fun DependencyHandler.Robolectric(api: Boolean) {

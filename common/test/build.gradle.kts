@@ -1,18 +1,23 @@
 import com.ivy.buildsrc.Coroutines
 import com.ivy.buildsrc.Hilt
+import com.ivy.buildsrc.JUnit5
 import com.ivy.buildsrc.Kotlin
 import com.ivy.buildsrc.Testing
-
-apply<com.ivy.buildsrc.IvyPlugin>()
 
 plugins {
     `android-library`
     `kotlin-android`
+
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
+
+apply<com.ivy.buildsrc.IvyPlugin>()
 
 dependencies {
     Hilt()
     implementation(project(":common:main"))
+    JUnit5()
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${com.ivy.buildsrc.Versions.junitJupiter}")
     Testing(
         // Prevent circular dependency
         commonTest = false,

@@ -3,11 +3,13 @@ import com.ivy.buildsrc.Hilt
 import com.ivy.buildsrc.Testing
 import com.ivy.buildsrc.Timber
 
-apply<com.ivy.buildsrc.IvyPlugin>()
-
 plugins {
     `android-library`
+
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
+
+apply<com.ivy.buildsrc.IvyPlugin>()
 
 dependencies {
     implementation(project(":common:main"))

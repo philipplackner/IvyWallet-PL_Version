@@ -2,13 +2,16 @@ import com.ivy.buildsrc.DataStore
 import com.ivy.buildsrc.Hilt
 import com.ivy.buildsrc.RoomDB
 
-apply<com.ivy.buildsrc.IvyPlugin>()
-
 plugins {
     `android-library`
     `kotlin-android`
     `kotlin-kapt` // for Room DB
+
+    id("de.mannodermaus.android-junit5") version "1.9.3.0"
+
 }
+
+apply<com.ivy.buildsrc.IvyPlugin>()
 
 android {
     defaultConfig {
