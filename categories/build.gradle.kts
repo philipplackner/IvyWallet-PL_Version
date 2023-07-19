@@ -20,3 +20,6 @@ dependencies {
     implementation(project(":navigation"))
     Testing()
 }
+android {
+    namespace = "com.ivy.categories"
+}

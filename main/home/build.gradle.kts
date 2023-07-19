@@ -22,3 +22,6 @@ dependencies {
     implementation(project(":main:bottom-bar"))
     implementation(project(":main:customer-journey"))
 }
+android {
+    namespace = "com.ivy.home"
+}

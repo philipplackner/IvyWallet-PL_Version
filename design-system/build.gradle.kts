@@ -16,7 +16,7 @@ apply<com.ivy.buildsrc.IvyComposePlugin>()
 
 android {
     defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -54,6 +54,7 @@ android {
         resources.excludes.add("META-INF/LGPL2.1")
         //-------------------------------------------------------
     }
+    namespace = "com.ivy.design"
 }
 
 dependencies {

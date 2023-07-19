@@ -32,3 +32,6 @@ dependencies {
     Timber(api = true)
     Testing()
 }
+android {
+    namespace = "com.ivy.drive.google_drive"
+}

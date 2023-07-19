@@ -17,3 +17,6 @@ dependencies {
     implementation(project(":core:domain"))
     Testing()
 }
+android {
+    namespace = "com.ivy.formula.domain"
+}

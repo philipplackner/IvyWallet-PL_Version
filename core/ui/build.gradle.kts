@@ -22,3 +22,6 @@ dependencies {
     RoomDB(api = false)
     Testing()
 }
+android {
+    namespace = "com.ivy.core.ui"
+}

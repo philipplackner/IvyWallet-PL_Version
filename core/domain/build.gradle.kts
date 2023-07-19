@@ -1,4 +1,5 @@
 import com.ivy.buildsrc.ComposeTesting
+import com.ivy.buildsrc.FunctionalProgramming
 import com.ivy.buildsrc.Hilt
 import com.ivy.buildsrc.Lifecycle
 import com.ivy.buildsrc.Testing
@@ -18,7 +19,11 @@ dependencies {
     implementation(project(":core:persistence"))
     implementation(project(":core:exchange-provider"))
 
+    FunctionalProgramming(false)
     Lifecycle(api = false)
     ComposeTesting(api = false) // for IdlingResource
     Testing()
+}
+android {
+    namespace = "com.ivy.core.domain"
 }

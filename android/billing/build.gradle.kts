@@ -18,3 +18,6 @@ dependencies {
 
     Billing(api = true)
 }
+android {
+    namespace = "com.ivy.billing"
+}

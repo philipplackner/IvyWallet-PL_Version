@@ -16,3 +16,6 @@ dependencies {
     implementation(project(":common:main"))
     Ktor(api = true)
 }
+android {
+    namespace = "com.ivy.network"
+}

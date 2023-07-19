@@ -16,3 +16,6 @@ dependencies {
     implementation(project(":common:main"))
     Compose(api = false)
 }
+android {
+    namespace = "com.ivy.navigation"
+}

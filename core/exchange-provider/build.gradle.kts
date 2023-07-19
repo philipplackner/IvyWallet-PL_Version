@@ -22,3 +22,6 @@ dependencies {
 
     Testing()
 }
+android {
+    namespace = "com.ivy.exchange"
+}

@@ -19,3 +19,6 @@ dependencies {
     implementation(project(":resources"))
     Testing()
 }
+android {
+    namespace = "com.ivy.main.bottombar"
+}

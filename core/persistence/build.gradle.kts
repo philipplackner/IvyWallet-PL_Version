@@ -21,6 +21,7 @@ android {
             }
         }
     }
+    namespace = "com.ivy.core.persistence"
 }
 
 dependencies {

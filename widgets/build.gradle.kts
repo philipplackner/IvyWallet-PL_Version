@@ -13,6 +13,7 @@ android {
     buildFeatures {
         compose = true
     }
+    namespace = "com.ivy.widgets"
 }
 
 dependencies {

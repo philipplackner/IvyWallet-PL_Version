@@ -21,3 +21,6 @@ dependencies {
     implementation(project(":drive:google-drive"))
     Testing()
 }
+android {
+    namespace = "com.ivy.backup.impl"
+}

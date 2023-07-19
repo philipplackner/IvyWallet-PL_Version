@@ -17,3 +17,6 @@ dependencies {
     implementation(project(":android:file-system"))
     Testing()
 }
+android {
+    namespace = "com.ivy.backup.base"
+}

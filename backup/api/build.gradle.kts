@@ -21,3 +21,6 @@ dependencies {
     implementation(project(":backup:impl"))
     Testing()
 }
+android {
+    namespace = "com.ivy.backup.api"
+}

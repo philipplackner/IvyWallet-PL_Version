@@ -21,7 +21,7 @@ android {
         versionCode = com.ivy.buildsrc.Project.versionCode
         versionName = com.ivy.buildsrc.Project.versionName
 
-        testInstrumentationRunner = "com.ivy.wallet.IvyAppTestRunner"
+        testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
 
         kapt {
             arguments {
@@ -138,6 +138,7 @@ android {
             it.useJUnitPlatform()
         }
     }
+    namespace = "com.ivy.wallet"
 }
 
 dependencies {

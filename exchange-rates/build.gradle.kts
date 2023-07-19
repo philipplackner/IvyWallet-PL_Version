@@ -21,3 +21,6 @@ dependencies {
     Testing()
 
 }
+android {
+    namespace = "com.ivy.exchangeRates"
+}

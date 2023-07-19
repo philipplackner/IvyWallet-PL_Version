@@ -31,3 +31,6 @@ dependencies {
     )
     api(project(":common:test")) // expose :common:test classes to all androidTest
 }
+android {
+    namespace = "com.ivy.common.androidtest"
+}

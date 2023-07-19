@@ -16,3 +16,6 @@ dependencies {
     implementation(project(":android:common"))
     Testing()
 }
+android {
+    namespace = "com.ivy.file"
+}

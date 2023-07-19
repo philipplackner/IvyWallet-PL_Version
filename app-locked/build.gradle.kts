@@ -16,3 +16,6 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:data-model"))
 }
+android {
+    namespace = "com.ivy.locked"
+}

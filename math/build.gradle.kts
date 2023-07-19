@@ -1,5 +1,6 @@
+import com.ivy.buildsrc.AssertK
 import com.ivy.buildsrc.Hilt
-import com.ivy.buildsrc.Testing
+import com.ivy.buildsrc.JUnit5
 
 plugins {
     `android-library`
@@ -15,5 +16,7 @@ dependencies {
     Hilt()
     implementation(project(":common:main"))
     implementation(project(":parser"))
-    Testing()
+}
+android {
+    namespace = "com.ivy.math"
 }

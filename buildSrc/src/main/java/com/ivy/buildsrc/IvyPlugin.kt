@@ -3,6 +3,7 @@ package com.ivy.buildsrc
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -13,8 +14,7 @@ abstract class IvyPlugin : Plugin<Project> {
         addKotlinCompilerArgs(project)
         setProjectSdkVersions(project)
 
-        // Robolectric doesn't integrate well with JUnit5 and Kotest
-//        robolectric(project)
+        test(project)
         androidTest(project)
         lint(project)
         kspSourceSets(project)
@@ -26,9 +26,21 @@ abstract class IvyPlugin : Plugin<Project> {
 //        }
 //    }
 
+    private fun test(project: Project) {
+        project.dependencies {
+            "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:${Versions.junitJupiter}")
+            testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiter}")
+            testImplementation("org.junit.jupiter:junit-jupiter-params:${Versions.junitJupiter}")
+            testImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+            androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+            testImplementation("io.mockk:mockk:${Versions.mockk}")
+            androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
+        }
+    }
+
     private fun androidTest(project: Project) {
         project.androidLibrary().defaultConfig {
-            testInstrumentationRunner = "com.ivy.common.androidtest.IvyTestRunner"
+            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
         }
     }
 

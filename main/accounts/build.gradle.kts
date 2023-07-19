@@ -21,3 +21,6 @@ dependencies {
     implementation(project(":main:bottom-bar"))
     Testing()
 }
+android {
+    namespace = "com.ivy.accounts"
+}

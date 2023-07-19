@@ -1,3 +1,4 @@
+import com.ivy.buildsrc.Arrow
 import com.ivy.buildsrc.Hilt
 
 plugins {
@@ -11,4 +12,8 @@ apply<com.ivy.buildsrc.IvyPlugin>()
 
 dependencies {
     Hilt()
+    Arrow(api = false)
+}
+android {
+    namespace = "com.ivy.data"
 }

@@ -17,3 +17,6 @@ dependencies {
     implementation(project(":core:data-model"))
     implementation(project(":navigation"))
 }
+android {
+    namespace = "com.ivy.menu"
+}

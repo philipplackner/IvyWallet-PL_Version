@@ -20,3 +20,6 @@ dependencies {
 
     implementation(project(":widgets"))
 }
+android {
+    namespace = "com.ivy.journey"
+}

@@ -1,7 +1,7 @@
 package com.ivy.core.domain.calculation
 
 import arrow.core.Option
-import arrow.core.continuations.option
+import arrow.core.computations.option
 import arrow.core.toOption
 import com.ivy.core.data.calculation.ExchangeRates
 import com.ivy.core.data.common.AssetCode

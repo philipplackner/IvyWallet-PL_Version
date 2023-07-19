@@ -41,12 +41,3 @@ fun isNonStable(version: String): Boolean {
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
 }
-
-tasks.register("printPlugins") {
-    doLast {
-        println("Plugins applied in project '${project.name}':")
-        project.plugins.forEach {
-            println(it::class.java.name)
-        }
-    }
-}

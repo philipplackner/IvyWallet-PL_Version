@@ -19,3 +19,6 @@ dependencies {
     implementation(project(":navigation"))
 
 }
+android {
+    namespace = "com.ivy.onboarding"
+}

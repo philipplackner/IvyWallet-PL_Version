@@ -15,3 +15,6 @@ dependencies {
     Hilt()
     AppCompat(api = false)
 }
+android {
+    namespace = "com.ivy.resources"
+}

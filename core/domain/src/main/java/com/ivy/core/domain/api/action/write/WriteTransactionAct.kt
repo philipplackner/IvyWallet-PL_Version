@@ -2,9 +2,9 @@ package com.ivy.core.domain.api.action.write
 
 import arrow.core.Either
 import arrow.core.NonEmptyList
-import arrow.core.continuations.either
+import arrow.core.computations.either
 import arrow.core.right
-import arrow.core.toNonEmptyListOrNull
+import com.ivy.common.toNonEmptyListOrNull
 import com.ivy.core.data.Transaction
 import com.ivy.core.data.TransactionId
 import com.ivy.core.data.calculation.AccountCache

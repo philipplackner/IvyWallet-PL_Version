@@ -18,3 +18,6 @@ dependencies {
     implementation(project(":backup:base"))
     Testing()
 }
+android {
+    namespace = "com.ivy.sync"
+}

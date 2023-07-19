@@ -17,3 +17,6 @@ dependencies {
     implementation(project(":core:ui"))
     AndroidX(api = false)
 }
+android {
+    namespace = "com.ivy.notifications"
+}

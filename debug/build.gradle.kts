@@ -17,3 +17,6 @@ dependencies {
     implementation(project(":design-system"))
     Hilt()
 }
+android {
+    namespace = "com.ivy.debug"
+}

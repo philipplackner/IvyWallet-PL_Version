@@ -16,7 +16,10 @@
 
 package com.ivy.buildsrc
 
+import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 
 
@@ -77,6 +80,8 @@ object Versions {
 
     const val junitJupiter: String = "5.9.3"
     const val junit5GradlePlugin = "1.9.3.0"
+
+    const val arrow = "1.0.1"
 
     //https://developer.android.com/training/dependency-injection/hilt-android
     //WARNING: Update hilt gradle plugin from buildSrc
@@ -160,6 +165,13 @@ object Versions {
     // AssertK
     const val assertK = "0.26.1"
 
+    // MockK
+    const val mockk = "1.12.5"
+    const val mockWebServer = "4.11.0"
+
+    // Turbine
+    const val turbine = "0.7.0"
+
     // endregion
 }
 
@@ -234,6 +246,20 @@ fun DependencyHandler.Accompanist(api: Boolean) {
         "com.google.accompanist:accompanist-systemuicontroller:${Versions.composeAccompanistUIController}",
         api = api
     )
+}
+
+fun DependencyHandler.FunctionalProgramming(api: Boolean) {
+    Arrow(api)
+}
+
+fun DependencyHandler.Arrow(
+    api: Boolean
+) {
+    dependency(platform("io.arrow-kt:arrow-stack:${Versions.arrow}"), api = api)
+    dependency("io.arrow-kt:arrow-core", api = api)
+    dependency("io.arrow-kt:arrow-fx-coroutines", api = api)
+    dependency("io.arrow-kt:arrow-fx-stm", api = api)
+//    dependency("io.arrow-kt:arrow-optics")
 }
 
 fun DependencyHandler.Coil(api: Boolean) {
@@ -420,6 +446,8 @@ fun DependencyHandler.Coroutines(
     testDependency(
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version", api = api
     )
+    testDependency("app.cash.turbine:turbine:${Versions.turbine}", api = api)
+    androidTestDependency("app.cash.turbine:turbine:${Versions.turbine}", api = api)
 }
 
 fun DependencyHandler.ThirdParty() {
@@ -460,6 +488,7 @@ fun DependencyHandler.RealmDb() {
     implementation("io.realm.kotlin:library-base:${Versions.realm}")
 }
 
+
 fun DependencyHandler.JUnit5() {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiter}")
     testImplementation("org.junit.jupiter:junit-jupiter-params:${Versions.junitJupiter}")
@@ -467,6 +496,11 @@ fun DependencyHandler.JUnit5() {
 
 fun DependencyHandler.AssertK() {
     testImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+}
+
+fun DependencyHandler.MockK() {
+    testImplementation("io.mockk:mockk:${Versions.mockk}")
+    androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
 }
 
 fun DependencyHandler.Testing(

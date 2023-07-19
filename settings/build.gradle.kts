@@ -29,3 +29,6 @@ dependencies {
 
 
 }
+android {
+    namespace = "com.ivy.settings"
+}

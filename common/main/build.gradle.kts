@@ -16,6 +16,7 @@ dependencies {
     Hilt()
     Kotlin(api = true)
     Coroutines(api = true)
+    FunctionalProgramming(api = true)
     Timber(api = true)
 
     Testing(
@@ -23,4 +24,7 @@ dependencies {
         commonTest = false,
         commonAndroidTest = false
     )
+}
+android {
+    namespace = "com.ivy.common"
 }

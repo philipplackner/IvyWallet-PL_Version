@@ -16,3 +16,6 @@ dependencies {
     implementation(project(":common:main"))
     Testing()
 }
+android {
+    namespace = "com.ivy.parser"
+}

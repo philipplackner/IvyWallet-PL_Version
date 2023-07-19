@@ -16,3 +16,6 @@ dependencies {
     AppCompat(api = true)
     Testing()
 }
+android {
+    namespace = "com.ivy.android.common"
+}

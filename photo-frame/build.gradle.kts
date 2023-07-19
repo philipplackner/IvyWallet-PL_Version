@@ -20,3 +20,6 @@ dependencies {
     implementation(project(":design-system"))
     Testing()
 }
+android {
+    namespace = "com.ivy.photo.frame"
+}

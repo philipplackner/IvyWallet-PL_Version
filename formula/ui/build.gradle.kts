@@ -17,3 +17,6 @@ dependencies {
     implementation(project(":design-system"))
     implementation(project(":formula:domain"))
 }
+android {
+    namespace = "com.ivy.formula.ui"
+}

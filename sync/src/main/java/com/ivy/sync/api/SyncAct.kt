@@ -1,7 +1,7 @@
 package com.ivy.sync.api
 
 import arrow.core.Either
-import arrow.core.continuations.either
+import arrow.core.computations.either
 import com.ivy.backup.base.WriteIvyWalletDataAct
 import com.ivy.core.domain.action.Action
 import com.ivy.core.domain.api.action.read.IvyWalletDataFromPartialAct
