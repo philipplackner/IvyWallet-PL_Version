@@ -12,6 +12,7 @@ apply<com.ivy.buildsrc.IvyComposePlugin>()
 dependencies {
     Hilt()
     implementation(project(":common:main"))
+    implementation(project(":common:android-test"))
     implementation(project(":design-system"))
     implementation(project(":core:ui"))
     implementation(project(":core:data-model"))

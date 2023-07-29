@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+    name = "ivy_wallet_datastore"
+)
+
 @Singleton
 class IvyDataStore @Inject constructor(
     @ApplicationContext private val appContext: Context
 ) {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-        name = "ivy_wallet_datastore"
-    )
-
     suspend fun <T> put(
         key: Preferences.Key<T>,
         value: T

@@ -141,7 +141,7 @@ private fun ActionButton(
     onClick: () -> Unit
 ) {
     IvyButton(
-        modifier = Modifier.size(52.dp).testTag("Hello"),
+        modifier = Modifier.size(52.dp),
 //        modifier = Modifier.pointerInput(Unit) {
 //            detectDragGestures(
 //                onDragCancel = {

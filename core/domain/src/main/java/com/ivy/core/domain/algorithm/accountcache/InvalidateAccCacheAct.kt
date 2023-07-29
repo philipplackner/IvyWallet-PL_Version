@@ -5,6 +5,7 @@ import com.ivy.common.time.provider.TimeProvider
 import com.ivy.common.time.toUtc
 import com.ivy.core.domain.action.Action
 import com.ivy.core.persistence.IvyWalletCoreDb
+import com.ivy.core.persistence.algorithm.accountcache.AccountCacheDao
 import com.ivy.data.transaction.TrnTime
 import java.time.Instant
 import javax.inject.Inject
@@ -14,7 +15,7 @@ import javax.inject.Inject
  * https://github.com/Ivy-Apps/ivy-wallet/blob/develop/docs/algorithms/Account-Cache%20Algo.md
  */
 class InvalidateAccCacheAct @Inject constructor(
-    private val db: IvyWalletCoreDb,
+    private val accountCacheDao: AccountCacheDao,
     private val timeProvider: TimeProvider,
 ) : Action<InvalidateAccCacheAct.Input, Unit>() {
     sealed interface Input {
@@ -58,7 +59,7 @@ class InvalidateAccCacheAct @Inject constructor(
     }
 
     private suspend fun ensureCacheConsistency(accountId: String, input: Input) {
-        val cacheTime = db.accountCacheDao().findTimestampById(accountId)
+        val cacheTime = accountCacheDao.findTimestampById(accountId)
         if (cacheTime != null) {
             val (oldTime, time) = when (input) {
                 is Input.OnCreateTrn -> null to input.time
@@ -100,6 +101,6 @@ class InvalidateAccCacheAct @Inject constructor(
     }
 
     private suspend fun invalidateCache(accountId: String) {
-        db.accountCacheDao().delete(accountId)
+        accountCacheDao.delete(accountId)
     }
 }

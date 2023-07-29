@@ -1,3 +1,4 @@
+import com.ivy.buildsrc.Coroutines
 import com.ivy.buildsrc.Hilt
 import com.ivy.buildsrc.RoomDB
 import com.ivy.buildsrc.Testing
@@ -20,6 +21,7 @@ dependencies {
     implementation(project(":navigation"))
     implementation(project(":math"))
     RoomDB(api = false)
+    Coroutines(api = false)
     Testing()
 }
 android {

@@ -26,7 +26,7 @@ abstract class IvyPlugin : Plugin<Project> {
 //        }
 //    }
 
-    private fun test(project: Project) {
+    protected open fun test(project: Project) {
         project.dependencies {
             "testRuntimeOnly"("org.junit.jupiter:junit-jupiter-engine:${Versions.junitJupiter}")
             testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiter}")

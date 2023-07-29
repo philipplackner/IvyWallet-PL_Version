@@ -1,3 +1,4 @@
+import com.ivy.buildsrc.Coroutines
 import com.ivy.buildsrc.Hilt
 import com.ivy.buildsrc.Testing
 
@@ -19,7 +20,7 @@ dependencies {
     implementation(project(":core:persistence"))
     implementation(project(":common:main"))
     Testing()
-
+    Coroutines(api = false)
 }
 android {
     namespace = "com.ivy.exchangeRates"

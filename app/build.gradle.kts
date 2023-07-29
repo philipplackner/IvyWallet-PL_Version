@@ -159,6 +159,7 @@ dependencies {
     implementation(project(":android:notifications"))
     implementation(project(":core:exchange-provider"))
     implementation(project(":core:domain"))
+    implementation(project(":core:persistence"))
     implementation(project(":debug"))
     implementation(project(":onboarding"))
     implementation(project(":android:common"))
@@ -177,6 +178,9 @@ dependencies {
 
     Networking(api = false)
     Testing()
+    AndroidXTest()
+    Coroutines(api = false)
+    AssertK()
 
     DataStore(api = false)
 

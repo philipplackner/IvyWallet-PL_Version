@@ -48,6 +48,7 @@ object Versions {
     // region Compose
     //https://developer.android.com/jetpack/androidx/releases/compose
     const val compose = "1.3.2"
+    const val composeTestingManifest = "1.3.0"
 
     //https://developer.android.com/jetpack/androidx/releases/compose-material
     const val composeMaterial = "1.3.1"
@@ -158,9 +159,9 @@ object Versions {
 
     // region AndroidX Test
     //https://developer.android.com/jetpack/androidx/releases/test
-    const val testCore = "1.4.0"
+    const val testCore = "1.3.0"
     const val testJunitExt = "1.1.3"
-    const val testRunner = "1.4.0"
+    const val testRunner = "1.3.0"
 
     // AssertK
     const val assertK = "0.26.1"
@@ -496,6 +497,7 @@ fun DependencyHandler.JUnit5() {
 
 fun DependencyHandler.AssertK() {
     testImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+    androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
 }
 
 fun DependencyHandler.MockK() {
