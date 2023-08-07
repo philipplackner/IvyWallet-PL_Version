@@ -1,4 +1,4 @@
-package com.ivy.core.domain.action.transaction
+package com.ivy
 
 import com.ivy.data.Sync
 import com.ivy.data.SyncState

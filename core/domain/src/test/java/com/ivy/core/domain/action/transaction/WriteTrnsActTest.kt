@@ -3,28 +3,15 @@ package com.ivy.core.domain.action.transaction
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotNull
-import com.ivy.core.domain.action.Action
+import com.ivy.account
+import com.ivy.attachment
 import com.ivy.core.domain.algorithm.accountcache.InvalidateAccCacheAct
-import com.ivy.data.Sync
-import com.ivy.data.SyncState
-import com.ivy.data.Value
-import com.ivy.data.account.Account
-import com.ivy.data.account.AccountState
-import com.ivy.data.attachment.Attachment
-import com.ivy.data.attachment.AttachmentSource
-import com.ivy.data.attachment.AttachmentType
-import com.ivy.data.tag.Tag
-import com.ivy.data.tag.TagState
-import com.ivy.data.transaction.Transaction
 import com.ivy.data.transaction.TransactionType
-import com.ivy.data.transaction.TrnMetadata
-import com.ivy.data.transaction.TrnPurpose
-import com.ivy.data.transaction.TrnState
-import com.ivy.data.transaction.TrnTime
+import com.ivy.tag
+import com.ivy.transaction
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
 import java.util.UUID
 
 internal class WriteTrnsActTest {

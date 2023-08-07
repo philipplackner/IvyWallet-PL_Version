@@ -2,17 +2,15 @@ package com.ivy.core.domain.action.transaction.transfer
 
 import com.ivy.core.domain.action.transaction.WriteTrnsAct
 import com.ivy.core.domain.action.transaction.WriteTrnsBatchAct
-import com.ivy.core.domain.action.transaction.account
+import com.ivy.account
 import com.ivy.data.Sync
 import com.ivy.data.SyncState
 import com.ivy.data.Value
-import com.ivy.data.account.Account
 import com.ivy.data.transaction.TransactionType
 import com.ivy.data.transaction.TrnTime
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
