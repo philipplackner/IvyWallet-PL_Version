@@ -4,6 +4,7 @@ import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.exclude
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -15,6 +16,7 @@ abstract class IvyPlugin : Plugin<Project> {
         setProjectSdkVersions(project)
 
         test(project)
+        androidTest(project)
         lint(project)
         kspSourceSets(project)
     }
@@ -43,6 +45,19 @@ abstract class IvyPlugin : Plugin<Project> {
     private fun lint(project: Project) {
         project.androidLibrary().lint {
             disable.add("MissingTranslation")
+        }
+    }
+
+    private fun androidTest(project: Project) {
+        project.dependencies {
+            androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+            androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
+        }
+        project.configurations.getByName("androidTestImplementation") {
+            exclude(group = "io.mockk", module = "mockk-agent-jvm")
+        }
+        project.androidLibrary().defaultConfig {
+            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
         }
     }
 
