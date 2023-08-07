@@ -15,7 +15,6 @@ abstract class IvyPlugin : Plugin<Project> {
         setProjectSdkVersions(project)
 
         test(project)
-        androidTest(project)
         lint(project)
         kspSourceSets(project)
     }
@@ -35,12 +34,6 @@ abstract class IvyPlugin : Plugin<Project> {
             androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
             testImplementation("io.mockk:mockk:${Versions.mockk}")
             androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
-        }
-    }
-
-    private fun androidTest(project: Project) {
-        project.androidLibrary().defaultConfig {
-            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
         }
     }
 
