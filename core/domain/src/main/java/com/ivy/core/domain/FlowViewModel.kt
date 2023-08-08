@@ -21,7 +21,7 @@ abstract class FlowViewModel<InternalState, UiState, Event> : ViewModel() {
 
     protected val state: StateFlow<InternalState> by lazy {
         stateFlow
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.Main)
             .onEach {
                 Timber.d("Internal state = $it")
             }
@@ -35,7 +35,7 @@ abstract class FlowViewModel<InternalState, UiState, Event> : ViewModel() {
     val uiState: StateFlow<UiState> by lazy {
         uiFlow.onEach {
             Timber.d("UI state = $it")
-        }.flowOn(Dispatchers.Default)
+        }.flowOn(Dispatchers.Main)
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000L),
