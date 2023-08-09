@@ -9,6 +9,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -42,7 +44,10 @@ fun IvyInputField(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     InputField(
-        modifier = modifier,
+        modifier = modifier
+            .semantics {
+                contentDescription = placeholder
+            },
         initialValue = initialValue,
         placeholder = placeholder,
         isError = isError,
