@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ivy.data.category.CategoryType
@@ -68,7 +69,7 @@ private fun CategoryTypeButton(
     onSelect: (CategoryType) -> Unit
 ) {
     IvyButton(
-        modifier = modifier,
+        modifier = modifier.testTag("category_type_button"),
         size = ButtonSize.Small,
         visibility = if (selected) Visibility.High else Visibility.Medium,
         feeling = if (selected) Feeling.Custom(

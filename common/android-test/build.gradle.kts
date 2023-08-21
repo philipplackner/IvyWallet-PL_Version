@@ -16,6 +16,12 @@ dependencies {
         dependency = { api(it) },
         kaptProcessor = { kapt(it) }
     )
+    RoomDB(api = false)
+    implementation(project(":core:persistence"))
+    implementation(project(":core:domain"))
+    implementation(project(":common:main"))
+    implementation("app.cash.turbine:turbine:${Versions.turbine}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}")
 
     Kotlin(api = false)
     Coroutines(api = false)

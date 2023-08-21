@@ -1,0 +1,93 @@
+package com.ivy.common.androidtest
+
+import android.content.Context
+import androidx.room.Room
+import com.ivy.core.persistence.IvyWalletCoreDb
+import com.ivy.core.persistence.algorithm.accountcache.AccountCacheDao
+import com.ivy.core.persistence.algorithm.calc.RatesDao
+import com.ivy.core.persistence.dao.AttachmentDao
+import com.ivy.core.persistence.dao.account.AccountDao
+import com.ivy.core.persistence.dao.account.AccountFolderDao
+import com.ivy.core.persistence.dao.category.CategoryDao
+import com.ivy.core.persistence.dao.exchange.ExchangeRateDao
+import com.ivy.core.persistence.dao.exchange.ExchangeRateOverrideDao
+import com.ivy.core.persistence.dao.tag.TagDao
+import com.ivy.core.persistence.dao.trn.TransactionDao
+import com.ivy.core.persistence.dao.trn.TrnLinkRecordDao
+import com.ivy.core.persistence.dao.trn.TrnMetadataDao
+import com.ivy.core.persistence.dao.trn.TrnTagDao
+import com.ivy.core.persistence.di.CorePersistenceModuleDI
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
+
+
+@Module
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [CorePersistenceModuleDI::class]
+)
+object TestCorePersistenceModuleDI {
+    @Provides
+    @Singleton
+    fun provideIvyWalletDb(@ApplicationContext appContext: Context): IvyWalletCoreDb =
+        Room.inMemoryDatabaseBuilder(appContext, IvyWalletCoreDb::class.java).build()
+
+    @Provides
+    @Singleton
+    fun provideAccountDao(db: IvyWalletCoreDb): AccountDao = db.accountDao()
+
+    @Provides
+    @Singleton
+    fun provideAccountCacheDao(db: IvyWalletCoreDb): AccountCacheDao = db.accountCacheDao()
+
+    @Provides
+    @Singleton
+    fun provideAccountFolderDao(db: IvyWalletCoreDb): AccountFolderDao = db.accountFolderDao()
+
+    @Provides
+    @Singleton
+    fun provideCategoryDao(db: IvyWalletCoreDb): CategoryDao = db.categoryDao()
+
+    @Provides
+    @Singleton
+    fun provideExchangeRateDao(db: IvyWalletCoreDb): ExchangeRateDao = db.exchangeRateDao()
+
+    @Provides
+    @Singleton
+    fun provideExchangeRateOverrideDao(db: IvyWalletCoreDb): ExchangeRateOverrideDao =
+        db.exchangeRateOverrideDao()
+
+    @Provides
+    @Singleton
+    fun provideRatesDao(db:IvyWalletCoreDb) : RatesDao =
+        db.ratesDao()
+
+    @Provides
+    @Singleton
+    fun provideTagDao(db: IvyWalletCoreDb): TagDao = db.tagDao()
+
+    @Provides
+    @Singleton
+    fun provideTrnDao(db: IvyWalletCoreDb): TransactionDao = db.trnDao()
+
+    @Provides
+    @Singleton
+    fun provideTrnLinkRecordDao(db: IvyWalletCoreDb): TrnLinkRecordDao = db.trnLinkRecordDao()
+
+    @Provides
+    @Singleton
+    fun provideTrnMetadataDao(db: IvyWalletCoreDb): TrnMetadataDao = db.trnMetadataDao()
+
+    @Provides
+    @Singleton
+    fun provideTrnTagDao(db: IvyWalletCoreDb): TrnTagDao = db.trnTagDao()
+
+    @Provides
+    @Singleton
+    fun provideAttachmentDao(db: IvyWalletCoreDb): AttachmentDao = db.attachmentDao()
+}
