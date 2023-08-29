@@ -21,9 +21,9 @@ class TransactionDaoFake: TransactionDao() {
     }
 
     override suspend fun updateTrnTagsSyncByTrnId(trnId: String, sync: SyncState) {
-        val transaction = transactions.find { it.id == trnId } ?: return
-        val index = transactions.indexOf(transaction)
-        transactions[index] = transaction.copy(sync = sync)
+        val tag = tags.find { it.trnId == trnId } ?: return
+        val index = tags.indexOf(tag)
+        tags[index] = tag.copy(sync = sync)
     }
 
     override suspend fun saveTags(entity: List<TrnTagEntity>) {
