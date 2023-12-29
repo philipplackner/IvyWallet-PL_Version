@@ -7,4 +7,5 @@ import com.ivy.data.Theme
 data class RootState(
     val appLocked: Boolean,
     val theme: Theme,
+    var openedShortCut: Boolean
 )

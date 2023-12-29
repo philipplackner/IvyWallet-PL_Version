@@ -117,11 +117,6 @@ class RootActivity : AppCompatActivity(), RootScreen {
             }
         }
 
-        // Check if the intent was triggered by a shortcut action, and notify the view model of the shortcut click event
-        if (intent.action == SHORTCUT_ACTION) {
-            viewModel.onEvent(RootEvent.ShortcutClick(intent))
-        }
-
         // Make the app drawing area fullscreen (draw behind status and nav bars)
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -141,6 +136,11 @@ class RootActivity : AppCompatActivity(), RootScreen {
 
             IvyUI {
                 NavigationRoot(state)
+            }
+
+            // Check if the intent was triggered by a shortcut action, and notify the view model of the shortcut click event
+            if (intent.action == SHORTCUT_ACTION) {
+                viewModel.onEvent(RootEvent.ShortcutClick(intent))
             }
         }
 
