@@ -2,6 +2,7 @@ package com.ivy.notifications
 
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -33,6 +34,18 @@ class NotificationService(
         notification: NotificationCompat.Builder,
         notificationId: Int
     ) {
+        // Check for POST_NOTIFICATIONS permission on Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // Permission not granted, return without showing notification
+                return
+            }
+        }
+        
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
                 ?: return
