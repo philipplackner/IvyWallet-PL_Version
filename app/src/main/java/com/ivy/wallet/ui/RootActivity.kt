@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.BoxWithConstraintsScope
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -148,7 +148,7 @@ class RootActivity : AppCompatActivity(), RootScreen {
     }
 
     @Composable
-    private fun BoxWithConstraintsScope.NavigationRoot(state: RootState) {
+    private fun BoxScope.NavigationRoot(state: RootState) {
         NavigationRoot(
             navigator = navigator,
             onboardingScreens = OnboardingScreens(

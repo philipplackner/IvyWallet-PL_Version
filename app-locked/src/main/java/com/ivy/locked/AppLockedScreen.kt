@@ -29,7 +29,7 @@ import com.ivy.design.l3_ivyComponents.button.IvyButton
 import com.ivy.design.util.IvyPreview
 
 @Composable
-fun BoxWithConstraintsScope.AppLockedScreen(
+fun AppLockedScreen(
     onShowOSBiometricsModal: () -> Unit,
     onContinueWithoutAuthentication: () -> Unit
 ) {
