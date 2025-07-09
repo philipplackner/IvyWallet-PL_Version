@@ -38,11 +38,13 @@ import com.ivy.design.util.IvyPreview
 import com.ivy.resources.R
 
 @Composable
-fun BoxScope.CategoriesScreen() {
+fun CategoriesScreen() {
     val viewModel: CategoriesViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
 
-    UI(state = state, onEvent = viewModel::onEvent)
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(state = state, onEvent = viewModel::onEvent)
+    }
 }
 
 @Composable
