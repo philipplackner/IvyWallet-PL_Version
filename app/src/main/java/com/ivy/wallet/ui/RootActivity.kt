@@ -6,7 +6,9 @@ import android.appwidget.AppWidgetManager
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.widget.Toast
@@ -74,9 +76,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RootActivity : AppCompatActivity(), RootScreen {
-    companion object {
-        const val SHORTCUT_ACTION = "ivy.wallet.intent.action.add_transaction"
-    }
 
     @Inject
     lateinit var navigator: Navigator
@@ -107,6 +106,11 @@ class RootActivity : AppCompatActivity(), RootScreen {
         createFileLauncher.wire(this)
         googleDriveConnection.wire(this)
         // endregion
+
+        // Request notification permission for Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestNotificationPermission()
+        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -410,6 +414,48 @@ class RootActivity : AppCompatActivity(), RootScreen {
             nowLocal.hour, nowLocal.minute, DateFormat.is24HourFormat(this)
         )
         picker.show()
+    }
+    // endregion
+    
+    // region Notification Permission
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // Request the permission
+                requestPermissions(
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    NOTIFICATION_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+    }
+    
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        
+        when (requestCode) {
+            NOTIFICATION_PERMISSION_REQUEST_CODE -> {
+                // Handle notification permission result
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted, notifications can be shown
+                } else {
+                    // Permission denied, notifications won't be shown
+                }
+            }
+        }
+    }
+    
+    companion object {
+        const val SHORTCUT_ACTION = "ivy.wallet.intent.action.add_transaction"
+        private const val NOTIFICATION_PERMISSION_REQUEST_CODE = 1001
     }
     // endregion
     // endregion
