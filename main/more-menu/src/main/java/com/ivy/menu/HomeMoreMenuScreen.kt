@@ -1,7 +1,7 @@
 package com.ivy.menu
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,11 +28,12 @@ import com.ivy.design.util.hiltViewModelPreviewSafe
 // TODO: Not implemented, yet => Re-work it
 
 @Composable
-fun BoxScope.HomeMoreMenuScreen() {
+fun HomeMoreMenuScreen() {
     val viewModel: HomeMoreMenuViewModel? = hiltViewModelPreviewSafe()
     val state = uiStatePreviewSafe(viewModel = viewModel, preview = ::previewState)
 
-    ColumnRoot(
+    Box(modifier = Modifier.fillMaxSize()) {
+        ColumnRoot(
         modifier = Modifier
             .background(UI.colors.pure)
     ) {
@@ -73,6 +74,7 @@ fun BoxScope.HomeMoreMenuScreen() {
             }
         )
         SpacerVer(height = 48.dp)
+        }
     }
 }
 
