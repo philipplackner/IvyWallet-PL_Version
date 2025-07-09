@@ -1,6 +1,6 @@
 package com.ivy.settings
 
-import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
@@ -61,10 +61,13 @@ import java.time.Instant
 // SwitchRow (on/off)
 
 @Composable
-fun BoxScope.SettingsScreen() {
+fun SettingsScreen() {
     val viewModel: SettingsViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
-    UI(state = state, onEvent = viewModel::onEvent)
+    
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(state = state, onEvent = viewModel::onEvent)
+    }
 }
 
 @Composable
