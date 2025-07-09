@@ -38,7 +38,7 @@ import com.ivy.transaction.modal.TrnDateModal
 import com.ivy.transaction.modal.TrnTimeModal
 
 @Composable
-fun BoxScope.EditTransferScreen(
+fun EditTransferScreen(
     batchId: String,
 ) {
     val viewModel: EditTransferViewModel = hiltViewModel()
@@ -48,7 +48,9 @@ fun BoxScope.EditTransferScreen(
         viewModel.onEvent(EditTransferEvent.Initial(batchId = batchId))
     }
 
-    UI(state = state, onEvent = viewModel::onEvent)
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(state = state, onEvent = viewModel::onEvent)
+    }
 }
 
 @Composable
