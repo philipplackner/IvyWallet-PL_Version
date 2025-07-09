@@ -1,7 +1,10 @@
 package com.ivy.exchangeRates
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,18 +43,19 @@ import com.ivy.exchangeRates.modal.AddRateModal
 
 
 @Composable
-fun BoxWithConstraintsScope.ExchangeRatesScreen() {
+fun ExchangeRatesScreen() {
     val viewModel: ExchangeRatesViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
-
-    UI(
-        state = state,
-        onEvent = viewModel::onEvent
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(
+            state = state,
+            onEvent = viewModel::onEvent
+        )
+    }
 }
 
 @Composable
-private fun BoxWithConstraintsScope.UI(
+private fun BoxScope.UI(
     state: RatesState,
     onEvent: (RatesEvent) -> Unit,
 ) {
