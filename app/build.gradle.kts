@@ -3,7 +3,7 @@ import com.ivy.buildsrc.*
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("org.jetbrains.kotlin.android")
@@ -23,12 +23,8 @@ android {
 
         testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
 
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
-
-            correctErrorTypes = true
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
     }
 
@@ -94,12 +90,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
         freeCompilerArgs = freeCompilerArgs + listOf("-Xskip-prerelease-check")
     }
 
@@ -120,7 +116,7 @@ android {
         htmlOutput = File(projectDir, "lint-merged-report.html")
     }
 
-    packagingOptions {
+    packaging {
         //Exclude this files so Jetpack Compose UI tests can build
         resources.excludes.add("META-INF/AL2.0")
         resources.excludes.add("META-INF/LGPL2.1")
