@@ -47,7 +47,7 @@ import com.ivy.transaction.modal.TrnTimeModal
 import com.ivy.transaction.modal.TrnTypeModal
 
 @Composable
-fun BoxScope.EditTransactionScreen(trnId: String) {
+fun EditTransactionScreen(trnId: String) {
     val viewModel: EditTransactionViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
 
@@ -57,10 +57,12 @@ fun BoxScope.EditTransactionScreen(trnId: String) {
         viewModel.onEvent(EditTrnEvent.Initial(trnId = trnId))
     }
 
-    UI(
-        state = state,
-        onEvent = viewModel::onEvent,
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(
+            state = state,
+            onEvent = viewModel::onEvent,
+        )
+    }
 }
 
 @Composable

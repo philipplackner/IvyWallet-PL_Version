@@ -42,14 +42,16 @@ import com.ivy.wallet.utils.horizontalSwipeListener
 import kotlinx.coroutines.launch
 
 @Composable
-fun BoxScope.HomeScreen() {
+fun HomeScreen() {
     val viewModel: HomeViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
 
-    UI(
-        state = state,
-        onEvent = viewModel::onEvent,
-    )
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(
+            state = state,
+            onEvent = viewModel::onEvent,
+        )
+    }
 }
 
 @Composable
