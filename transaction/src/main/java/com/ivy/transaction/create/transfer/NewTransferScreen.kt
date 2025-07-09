@@ -32,7 +32,7 @@ import com.ivy.transaction.data.TransferRateUi
 import com.ivy.transaction.modal.*
 
 @Composable
-fun BoxScope.NewTransferScreen() {
+fun NewTransferScreen() {
     val viewModel: NewTransferViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
 
@@ -42,7 +42,9 @@ fun BoxScope.NewTransferScreen() {
         viewModel.onEvent(NewTransferEvent.Initial)
     }
 
-    UI(state = state, onEvent = viewModel::onEvent)
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(state = state, onEvent = viewModel::onEvent)
+    }
 }
 
 @Composable

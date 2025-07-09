@@ -3,7 +3,14 @@ package com.ivy.api.screen.backup
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -15,7 +22,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ivy.core.ui.rootScreen
 import com.ivy.data.file.FileType
 import com.ivy.design.l0_system.UI
-import com.ivy.design.l1_buildingBlocks.*
+import com.ivy.design.l1_buildingBlocks.B1
+import com.ivy.design.l1_buildingBlocks.B2
+import com.ivy.design.l1_buildingBlocks.ColumnRoot
+import com.ivy.design.l1_buildingBlocks.H2
+import com.ivy.design.l1_buildingBlocks.SpacerHor
+import com.ivy.design.l1_buildingBlocks.SpacerVer
+import com.ivy.design.l1_buildingBlocks.SpacerWeight
 import com.ivy.design.l3_ivyComponents.BackButton
 import com.ivy.design.l3_ivyComponents.Feeling
 import com.ivy.design.l3_ivyComponents.Visibility
@@ -24,10 +37,12 @@ import com.ivy.design.l3_ivyComponents.button.IvyButton
 import com.ivy.design.util.IvyPreview
 
 @Composable
-fun BoxScope.ImportBackupScreen() {
+fun ImportBackupScreen() {
     val viewModel: ImportBackupViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
-    UI(state = state, onEvent = viewModel::onEvent)
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(state = state, onEvent = viewModel::onEvent)
+    }
 }
 
 @Composable
