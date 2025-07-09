@@ -45,7 +45,7 @@ class AddFrameAct @Inject constructor(
             val photoWidth = photo.width
             val photoHeight = photo.height
 
-            val photoWithFrame = Bitmap.createBitmap(photoWidth, photoHeight, photo.config)
+            val photoWithFrame = Bitmap.createBitmap(photoWidth, photoHeight, photo.config ?: Bitmap.Config.ARGB_8888)
             val canvas = Canvas(photoWithFrame)
             canvas.drawBitmap(photo, Matrix(), null) // draw photo
             canvas.drawBitmap(resizedFrame, 0f, 0f, null) // draw frame

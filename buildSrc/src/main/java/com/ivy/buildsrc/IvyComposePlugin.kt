@@ -9,7 +9,7 @@ abstract class IvyComposePlugin : IvyPlugin() {
 
         project.dependencies.add(
             "debugImplementation",
-            "androidx.compose.ui:ui-test-manifest:${Versions.composeTestingManifest}"
+            "androidx.compose.ui:ui-test-manifest"
         )
 
         val library = project.androidLibrary()
