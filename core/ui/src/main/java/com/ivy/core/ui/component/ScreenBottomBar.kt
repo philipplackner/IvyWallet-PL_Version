@@ -47,12 +47,12 @@ fun BoxScope.ScreenBottomBar(
     }
 }
 
-private sealed interface BottomBarEvent {
+internal sealed interface BottomBarEvent {
     object Back : BottomBarEvent
 }
 
 @HiltViewModel
-private class BottomBarViewModel @Inject constructor(
+internal class BottomBarViewModel @Inject constructor(
     private val navigator: Navigator,
 ) : HandlerViewModel<BottomBarEvent>() {
     override suspend fun handleEvent(event: BottomBarEvent) = when (event) {
