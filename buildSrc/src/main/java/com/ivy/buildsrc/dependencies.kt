@@ -29,128 +29,121 @@ object Project {
     const val versionCode = 117
 
     //Compile SDK & Build Tools
-    const val compileSdkVersion = 33
+    const val compileSdkVersion = 34
 
     //App
     const val applicationId = "com.ivy.wallet"
     const val minSdk = 28
-    const val targetSdk = 30
+    const val targetSdk = 34
 }
 
 object Versions {
     //https://kotlinlang.org/docs/releases.html#release-details
     //WARNING: Version must match in buildSrc build.gradle.kts
-    const val kotlin = "1.7.20"
+    const val kotlin = "1.9.25"
 
     //https://github.com/Kotlin/kotlinx.coroutines
-    const val coroutines = "1.6.4"
+    const val coroutines = "1.7.3"
 
     // region Compose
-    //https://developer.android.com/jetpack/androidx/releases/compose
-    const val compose = "1.3.2"
-    const val composeTestingManifest = "1.3.0"
-
-    //https://developer.android.com/jetpack/androidx/releases/compose-material
-    const val composeMaterial = "1.3.1"
+    //https://developer.android.com/jetpack/androidx/releases/compose-bom
+    const val composeBom = "2024.09.03"
 
     //https://developer.android.com/jetpack/androidx/releases/compose-compiler
-    const val composeCompilerVersion = "1.3.2"
-
-    //https://developer.android.com/jetpack/androidx/releases/compose-foundation
-    const val composeFoundation = "1.3.1"
+    const val composeCompilerVersion = "1.5.15"
 
     //https://developer.android.com/jetpack/compose/navigation
-    const val navigationCompose = "2.5.1"
+    const val navigationCompose = "2.8.2"
 
     //https://developer.android.com/jetpack/androidx/releases/activity
-    const val composeActivity = "1.6.1"
+    const val composeActivity = "1.9.2"
 
     //https://developer.android.com/jetpack/androidx/releases/lifecycle
-    const val composeViewModel = "2.6.0-alpha03"
+    const val composeViewModel = "2.8.6"
 
     //https://developer.android.com/jetpack/androidx/releases/glance
-    const val composeGlance = "1.0.0-alpha05"
+    const val composeGlance = "1.1.0"
 
     //Set status bar color
     //https://google.github.io/accompanist/systemuicontroller/
-    const val composeAccompanistUIController = "0.28.0"
+    const val composeAccompanistUIController = "0.36.0"
 
     //https://coil-kt.github.io/coil/compose/
-    const val composeCoil = "2.2.2"
+    const val composeCoil = "2.7.0"
     // endregion
 
-    const val junitJupiter: String = "5.9.3"
-    const val junit5GradlePlugin = "1.9.3.0"
+    const val junitJupiter: String = "5.10.3"
+    const val junit5GradlePlugin = "1.10.0.0"
 
-    const val arrow = "1.0.1"
+    const val arrow = "1.2.4"
 
     //https://developer.android.com/training/dependency-injection/hilt-android
     //WARNING: Update hilt gradle plugin from buildSrc
-    const val hilt = "2.44"
+    const val hilt = "2.52"
 
     //https://mvnrepository.com/artifact/androidx.hilt/hilt-compiler?repo=google
-    const val hiltX = "1.0.0"
+    const val hiltX = "1.2.0"
 
     //https://developer.android.com/jetpack/androidx/releases/hilt
-    const val hiltNavigationCompose = "1.1.0-alpha01"
+    const val hiltNavigationCompose = "1.2.0"
 
     //https://developer.android.com/jetpack/androidx/releases/appcompat
-    const val appCompat = "1.6.0-rc01"
+    const val appCompat = "1.7.0"
 
     //https://developer.android.com/jetpack/androidx/releases/core
-    const val coreKtx = "1.9.0-alpha05"
+    const val coreKtx = "1.13.1"
 
     //https://developer.android.com/jetpack/androidx/releases/work
-    const val workVersion = "2.8.0-alpha02"
+    const val workVersion = "2.9.1"
 
     //https://developer.android.com/jetpack/androidx/releases/biometric
-    const val biometric = "1.2.0-alpha04"
+    const val biometric = "1.2.0-alpha05"
 
     //https://developer.android.com/jetpack/androidx/releases/recyclerview
-    const val recyclerView = "1.3.0-beta01"
+    const val recyclerView = "1.3.2"
 
     //https://developer.android.com/jetpack/androidx/releases/webkit
-    const val webkit = "1.5.0-beta01"
+    const val webkit = "1.12.0"
 
     //https://developer.android.com/jetpack/androidx/releases/lifecycle
-    const val lifecycle = "2.6.0-alpha01"
+    const val lifecycle = "2.8.6"
 
     //https://developer.android.com/jetpack/androidx/releases/room
-    const val room = "2.5.0"
+    const val room = "2.6.1"
 
     //https://github.com/square/retrofit
-    const val retrofit = "2.9.0"
+    const val retrofit = "2.11.0"
 
     //https://ktor.io/
-    const val ktor = "2.0.3"
+    const val ktor = "2.3.12"
 
     //https://github.com/google/gson
-    const val gson = "2.8.7"
+    const val gson = "2.11.0"
 
     //https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor
-    const val okhttpLogging = "4.9.1"
+    const val okhttpLogging = "4.12.0"
 
     //https://github.com/JakeWharton/timber/releases
-    const val timber = "4.7.1"
+    const val timber = "5.0.1"
 
     //https://github.com/greenrobot/EventBus/releases
-    const val eventBus = "3.2.0"
+    const val eventBus = "3.3.1"
 
     //https://developer.android.com/jetpack/androidx/releases/datastore
-    const val dataStore = "1.0.0"
+    const val dataStore = "1.1.1"
 
     //https://developer.android.com/google/play/billing/getting-ready
-    const val googleBilling = "4.0.0"
+    const val googleBilling = "7.0.0"
 
     //WARNING: Version must be also updated in buildSrc
     //https://www.mongodb.com/docs/realm/sdk/kotlin/install/android/
-    const val realm = "1.0.2"
+    const val realm = "1.16.0"
 
     //https://github.com/Kotlin/kotlinx.serialization#introduction-and-references
-    const val kotlinSerialization = "1.4.0"
+    const val kotlinSerialization = "1.7.2"
 
     // region http://robolectric.org/getting-started/
-    const val robolectric = "4.8"
+    const val robolectric = "4.13"
     const val robolectricJunit = "4.13.2"
 
     //https://kotest.io/docs/extensions/robolectric.html
@@ -159,19 +152,19 @@ object Versions {
 
     // region AndroidX Test
     //https://developer.android.com/jetpack/androidx/releases/test
-    const val testCore = "1.3.0"
-    const val testJunitExt = "1.1.3"
-    const val testRunner = "1.3.0"
+    const val testCore = "1.6.1"
+    const val testJunitExt = "1.2.1"
+    const val testRunner = "1.6.2"
 
     // AssertK
-    const val assertK = "0.26.1"
+    const val assertK = "0.28.1"
 
     // MockK
-    const val mockk = "1.12.5"
-    const val mockWebServer = "4.11.0"
+    const val mockk = "1.13.12"
+    const val mockWebServer = "4.12.0"
 
     // Turbine
-    const val turbine = "0.7.0"
+    const val turbine = "1.1.0"
 
     // endregion
 }
@@ -191,25 +184,19 @@ fun DependencyHandler.Kotlin(api: Boolean) {
 }
 
 fun DependencyHandler.Compose(api: Boolean) {
-    val composeVersion = Versions.compose
-    //URL: https://developer.android.com/jetpack/androidx/releases/compose
-    dependency("androidx.compose.ui:ui:$composeVersion", api = api)
-    dependency(
-        "androidx.compose.foundation:foundation:${Versions.composeFoundation}",
-        api = api
-    )
-    dependency(
-        "androidx.compose.foundation:foundation-layout:${Versions.composeFoundation}",
-        api = api
-    )
-    dependency("androidx.compose.animation:animation:$composeVersion", api = api)
-    dependency("androidx.compose.material:material:${Versions.composeMaterial}", api = api)
-    dependency(
-        "androidx.compose.material:material-icons-extended:${Versions.composeMaterial}", api = api
-    )
-    dependency("androidx.compose.runtime:runtime-livedata:$composeVersion", api = api)
-    debugDependency("androidx.compose.ui:ui-tooling:$composeVersion", api = api)
-    dependency("androidx.compose.ui:ui-tooling-preview:$composeVersion", api = api)
+    //URL: https://developer.android.com/jetpack/androidx/releases/compose-bom
+    dependency(platform("androidx.compose:compose-bom:${Versions.composeBom}"), api = api)
+    
+    // Core Compose libraries - versions managed by BOM
+    dependency("androidx.compose.ui:ui", api = api)
+    dependency("androidx.compose.foundation:foundation", api = api)
+    dependency("androidx.compose.foundation:foundation-layout", api = api)
+    dependency("androidx.compose.animation:animation", api = api)
+    dependency("androidx.compose.material:material", api = api)
+    dependency("androidx.compose.material:material-icons-extended", api = api)
+    dependency("androidx.compose.runtime:runtime-livedata", api = api)
+    debugDependency("androidx.compose.ui:ui-tooling", api = api)
+    dependency("androidx.compose.ui:ui-tooling-preview", api = api)
 
     dependency(
         "androidx.navigation:navigation-compose:${Versions.navigationCompose}", api = api
@@ -275,11 +262,11 @@ fun DependencyHandler.ComposeTesting(api: Boolean) {
     //THIS IS NOT RIGHT: Implementation for IdlingResource access on both Debug & Release
     //Without having this dependency "lintRelease" fails
     //TODO: Fix that
-    dependency("androidx.compose.ui:ui-test-junit4:${Versions.compose}", api = api)
+    dependency("androidx.compose.ui:ui-test-junit4", api = api)
 
     // Needed for createComposeRule, but not createAndroidComposeRule:
     androidTestDependency(
-        "androidx.compose.ui:ui-test-manifest:${Versions.compose}", api = api
+        "androidx.compose.ui:ui-test-manifest", api = api
     )
 }
 
@@ -311,15 +298,15 @@ fun DependencyHandler.Firebase() {
 }
 
 /**
- * Hilt DI
+ * Hilt DI with KSP
  * https://developer.android.com/training/dependency-injection/hilt-android
  */
 fun DependencyHandler.Hilt() {
     val api = false
     dependency("com.google.dagger:hilt-android:${Versions.hilt}", api = api)
-    kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    ksp("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
 
-    kapt("androidx.hilt:hilt-compiler:${Versions.hiltX}")
+    ksp("androidx.hilt:hilt-compiler:${Versions.hiltX}")
 
     //URL: https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager
     dependency("androidx.hilt:hilt-work:${Versions.hiltX}", api = api)
@@ -336,20 +323,21 @@ fun DependencyHandler.HiltTesting(
     dependency: DependencyHandler.(String) -> Unit = { dep ->
         androidTestImplementation(dep)
     },
-    kaptProcessor: DependencyHandler.(String) -> Unit = { dep ->
-        kaptAndroidTest(dep)
+    kspProcessor: DependencyHandler.(String) -> Unit = { dep ->
+        kspAndroidTest(dep)
     }
 ) {
     dependency("com.google.dagger:hilt-android-testing:${Versions.hilt}")
-    kaptProcessor("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
+    kspProcessor("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
 }
 
 /**
+ * Room Database with KSP
  * https://developer.android.com/jetpack/androidx/releases/room
  */
 fun DependencyHandler.RoomDB(api: Boolean) {
     dependency("androidx.room:room-runtime:${Versions.room}", api = api)
-    kapt("androidx.room:room-compiler:${Versions.room}")
+    ksp("androidx.room:room-compiler:${Versions.room}")
     dependency("androidx.room:room-ktx:${Versions.room}", api = api)
 }
 
@@ -391,7 +379,7 @@ fun DependencyHandler.SerializationJson() {
 }
 
 /**
- * Jetpack Compose Lifecycle
+ * Jetpack Compose Lifecycle with KSP
  * https://developer.android.com/jetpack/androidx/releases/lifecycle
  */
 fun DependencyHandler.Lifecycle(
@@ -403,8 +391,8 @@ fun DependencyHandler.Lifecycle(
     dependency("androidx.lifecycle:lifecycle-viewmodel-savedstate:$version", api = api)
     dependency("androidx.lifecycle:lifecycle-runtime-ktx:$version", api = api)
 
-    //TODO: Warning "kapt" is not transitive!
-    kapt("androidx.lifecycle:lifecycle-compiler:$version")
+    // KSP is transitive and faster than KAPT
+    ksp("androidx.lifecycle:lifecycle-compiler:$version")
 }
 
 fun DependencyHandler.AndroidX(api: Boolean) {
