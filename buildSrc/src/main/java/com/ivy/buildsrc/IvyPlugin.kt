@@ -3,6 +3,9 @@ package com.ivy.buildsrc
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -11,7 +14,9 @@ abstract class IvyPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         applyPlugins(project)
+        configureJavaToolchain(project)
         addKotlinCompilerArgs(project)
+        configureCompose(project)
         setProjectSdkVersions(project)
 
         test(project)
@@ -46,13 +51,21 @@ abstract class IvyPlugin : Plugin<Project> {
         }
     }
 
+    private fun configureJavaToolchain(project: Project) {
+        // Configure Java toolchain to work with newer Gradle and Java versions
+        project.extensions.configure<JavaPluginExtension> {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(17))
+            }
+        }
+    }
+
     private fun applyPlugins(project: Project) {
         project.apply {
             plugin("android-library")
             plugin("kotlin-android")
-            plugin("kotlin-kapt")
-            plugin("dagger.hilt.android.plugin")
             plugin("com.google.devtools.ksp")
+            plugin("dagger.hilt.android.plugin")
 
             //TODO: Enable if we migrate to kotlinx serialization
     //            plugin("kotlinx-serialization")
@@ -60,20 +73,8 @@ abstract class IvyPlugin : Plugin<Project> {
     }
 
     private fun kspSourceSets(project: Project) {
-        project.androidLibrary().sourceSets {
-            getByName("main").apply {
-                java.srcDir("build/generated/ksp/debug")
-                kotlin.srcDir("build/generated/ksp/debug")
-                java.srcDir("build/generated/ksp/demo")
-                kotlin.srcDir("build/generated/ksp/demo")
-            }
-            getByName("test").apply {
-                java.srcDir("build/generated/ksp/debug")
-                kotlin.srcDir("build/generated/ksp/debug")
-                java.srcDir("build/generated/ksp/demo")
-                kotlin.srcDir("build/generated/ksp/demo")
-            }
-        }
+        // KSP automatically handles source sets for each variant
+        // No manual configuration needed
     }
 
     private fun addKotlinCompilerArgs(project: Project) {
@@ -81,6 +82,7 @@ abstract class IvyPlugin : Plugin<Project> {
             allprojects {
                 tasks.withType(KotlinCompile::class).all {
                     with(kotlinOptions) {
+                        jvmTarget = "17"
                         freeCompilerArgs = freeCompilerArgs + listOf("-Xcontext-receivers")
                         //Suppress Jetpack Compose versions compiler incompatibility, do NOT do it
 //                        freeCompilerArgs = freeCompilerArgs + listOf(
@@ -94,11 +96,28 @@ abstract class IvyPlugin : Plugin<Project> {
         }
     }
 
+    private fun configureCompose(project: Project) {
+        project.androidLibrary().compileOptions {
+            sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
+            targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
+        }
+        
+        project.androidLibrary().composeOptions {
+            kotlinCompilerExtensionVersion = "1.5.15"
+        }
+        
+        project.androidLibrary().buildFeatures {
+            compose = true
+        }
+    }
+
     private fun setProjectSdkVersions(project: Project) {
         val library = project.androidLibrary()
         library.compileSdk = com.ivy.buildsrc.Project.compileSdkVersion
         library.defaultConfig {
             minSdk = com.ivy.buildsrc.Project.minSdk
+        }
+        library.testOptions {
             targetSdk = com.ivy.buildsrc.Project.targetSdk
         }
     }
