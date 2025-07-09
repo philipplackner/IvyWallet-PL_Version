@@ -7,7 +7,7 @@ plugins {
     `android-library`
     id("org.jetbrains.kotlin.android")
     id("kotlin-android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 
     id("de.mannodermaus.android-junit5") version "1.9.3.0"
 }
@@ -31,24 +31,9 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = com.ivy.buildsrc.Versions.composeCompilerVersion
-    }
-
-    packagingOptions {
+    packaging {
         //Exclude this files so Jetpack Compose UI tests can build
         resources.excludes.add("META-INF/AL2.0")
         resources.excludes.add("META-INF/LGPL2.1")
