@@ -29,12 +29,12 @@ object Project {
     const val versionCode = 117
 
     //Compile SDK & Build Tools
-    const val compileSdkVersion = 34
+    const val compileSdkVersion = 35
 
     //App
     const val applicationId = "com.ivy.wallet"
     const val minSdk = 28
-    const val targetSdk = 34
+    const val targetSdk = 35
 }
 
 object Versions {
