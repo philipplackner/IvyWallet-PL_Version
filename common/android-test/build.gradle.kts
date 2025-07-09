@@ -14,7 +14,7 @@ dependencies {
     Hilt()
     HiltTesting(
         dependency = { api(it) },
-        kaptProcessor = { kapt(it) }
+        kspProcessor = { ksp(it) }
     )
 
     Kotlin(api = false)
