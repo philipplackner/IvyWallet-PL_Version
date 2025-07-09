@@ -5,7 +5,7 @@ import com.ivy.buildsrc.RoomDB
 plugins {
     `android-library`
     `kotlin-android`
-    `kotlin-kapt` // for Room DB
+    id("com.google.devtools.ksp") // for Room DB
 
     id("de.mannodermaus.android-junit5") version "1.9.3.0"
 
@@ -15,10 +15,8 @@ apply<com.ivy.buildsrc.IvyPlugin>()
 
 android {
     defaultConfig {
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/../room-db-schemas")
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/../room-db-schemas")
         }
     }
     namespace = "com.ivy.formula.persistence"

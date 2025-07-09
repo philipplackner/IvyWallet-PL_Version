@@ -1,7 +1,8 @@
 package com.ivy.photo.frame
 
 import android.graphics.Bitmap
-import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -25,10 +26,12 @@ import com.ivy.design.l3_ivyComponents.button.IvyButton
 import com.ivy.photo.frame.data.MessageUi
 
 @Composable
-fun BoxScope.AddFrameScreen() {
+fun AddFrameScreen() {
     val viewModel: AddFrameViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
-    UI(state = state, onEvent = viewModel::onEvent)
+    Box(modifier = Modifier.fillMaxSize()) {
+        UI(state = state, onEvent = viewModel::onEvent)
+    }
 }
 
 @Composable
