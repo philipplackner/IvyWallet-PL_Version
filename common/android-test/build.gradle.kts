@@ -14,7 +14,7 @@ dependencies {
     Hilt()
     HiltTesting(
         dependency = { api(it) },
-        kaptProcessor = { kapt(it) }
+        kspProcessor = { ksp(it) }
     )
     RoomDB(api = false)
     implementation(project(":core:persistence"))
