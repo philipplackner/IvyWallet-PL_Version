@@ -80,3 +80,7 @@ internal fun DependencyHandler.kaptAndroidTest(value: Any) {
     this.add("kaptAndroidTest", value)
 }
 
+internal fun DependencyHandler.kspAndroidTest(value: Any) {
+    this.add("kspAndroidTest", value)
+}
+

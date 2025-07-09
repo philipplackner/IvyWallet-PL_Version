@@ -1,6 +1,7 @@
 package com.ivy.exchangeRates.modal
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,7 +30,7 @@ import com.ivy.design.util.IvyPreview
 
 
 @Composable
-fun BoxWithConstraintsScope.AddRateModal(
+fun BoxScope.AddRateModal(
     modal: IvyModal,
     baseCurrency: String,
     dismiss: () -> Unit,
