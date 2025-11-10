@@ -44,6 +44,12 @@ abstract class IvyPlugin : Plugin<Project> {
         }
     }
 
+    protected open fun androidTest(project: Project) {
+        project.androidLibrary().testOptions {
+            unitTests.isIncludeAndroidResources = true
+        }
+    }
+
     /**
      * Global lint configuration
      */
