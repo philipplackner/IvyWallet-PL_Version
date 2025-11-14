@@ -44,12 +44,13 @@ class RootViewModel @Inject constructor(
         InternalState(baseCurrency = baseCurrency)
     }
 
-    override val initialUi = RootState(appLocked = false, theme = Theme.Auto)
+    override val initialUi = RootState(appLocked = false, theme = Theme.Auto, openedShortCut = false)
 
     override val uiFlow: Flow<RootState> = themeFlow(Unit).map { theme ->
         RootState(
             appLocked = false,
-            theme = theme
+            theme = theme,
+            openedShortCut = false
         )
     }
 
@@ -59,10 +60,15 @@ class RootViewModel @Inject constructor(
         when (event) {
             is RootEvent.AppOpen -> {
                 handleAppOpen()
+                if (initialUi.openedShortCut) {
+                    initialUi.openedShortCut = false
+                }
             }
 
             is RootEvent.ShortcutClick -> {
-                handleShortcut(event.intent)
+                if (!initialUi.openedShortCut) {
+                    handleShortcut(event.intent)
+                }
             }
         }
     }
@@ -90,7 +96,13 @@ class RootViewModel @Inject constructor(
                     Destination.newTransaction.destination(
                         NewTransaction.Arg(trnType = TransactionType.Expense)
                     )
-                )
+                ) {
+                    popUpTo(Destination.home.route) {
+                        inclusive = false
+                    }
+                    launchSingleTop = false
+                    initialUi.openedShortCut = true
+                }
             }
             // Add income shortcut
             "INCOME" -> {
@@ -98,7 +110,13 @@ class RootViewModel @Inject constructor(
                     Destination.newTransaction.destination(
                         NewTransaction.Arg(trnType = TransactionType.Income)
                     )
-                )
+                ) {
+                    popUpTo(Destination.home.route) {
+                        inclusive = false
+                    }
+                    launchSingleTop = false
+                    initialUi.openedShortCut = true
+                }
             }
             // Add transfer shortcut
             "TRANSFER" -> {
