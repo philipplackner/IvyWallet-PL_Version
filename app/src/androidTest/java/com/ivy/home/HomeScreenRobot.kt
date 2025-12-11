@@ -4,6 +4,7 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnySibling
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasScrollToNodeAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onFirst
@@ -35,28 +36,29 @@ class HomeScreenRobot(
     }
 
     fun openDateRangeSheet(timeProvider: TimeProvider): HomeScreenRobot {
-        runBlocking {
-            composeRule.awaitIdle()
-            // UI shows "July. 2023" but month.name returns "JULY"
-            composeRule
-                .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true, substring = true)
-                .performClick()
-            composeRule.awaitIdle()
-        }
+        composeRule
+            .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true, substring = true)
+            .performClick()
         return this
     }
 
     fun selectMonth(monthName: String): HomeScreenRobot {
-        runBlocking {
-            composeRule.awaitIdle()
-            // Scroll LazyRow to find the month, then click it
-            composeRule
-                .onNode(horizontalScrollableMatcher())
-                .performScrollToNode(hasText(monthName))
-            composeRule.awaitIdle()
-            composeRule.onNodeWithText(monthName).performClick()
-        }
+        // Scroll to the month in horizontal LazyRow (may be off-screen)
+        composeRule
+            .onNode(hasHorizontalScrollAction())
+            .performScrollToNode(hasText(monthName))
+
+        composeRule
+            .onNodeWithText(monthName, ignoreCase = true)
+            .assertIsDisplayed()
+            .performClick()
         return this
+    }
+
+    private fun hasHorizontalScrollAction(): SemanticsMatcher {
+        return hasScrollAction() and SemanticsMatcher.keyIsDefined(
+            SemanticsProperties.HorizontalScrollAxisRange
+        )
     }
 
     fun assertDateIsDisplayed(day: Int, month: String): HomeScreenRobot {
@@ -68,19 +70,12 @@ class HomeScreenRobot(
     }
 
     fun clickDone(): HomeScreenRobot {
-        runBlocking {
-            composeRule.awaitIdle()
-            composeRule.onNodeWithText("Done").performClick()
-            composeRule.awaitIdle()
-        }
+        composeRule.onNodeWithText("Done").performClick()
         return this
     }
 
     fun clickUpcoming(): HomeScreenRobot {
-        runBlocking {
-            composeRule.awaitIdle()
-            composeRule.onNodeWithText("Upcoming", substring = true).performClick()
-        }
+        composeRule.onNodeWithText("Upcoming").performClick()
         return this
     }
 
@@ -118,7 +113,4 @@ class HomeScreenRobot(
         composeRule.onNodeWithText("Get").performClick()
         return this
     }
-
-    private fun horizontalScrollableMatcher() =
-        hasScrollToNodeAction() and SemanticsMatcher.keyIsDefined(SemanticsProperties.HorizontalScrollAxisRange)
 }
