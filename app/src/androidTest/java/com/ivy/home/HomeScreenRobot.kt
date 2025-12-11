@@ -1,20 +1,20 @@
 package com.ivy.home
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasAnySibling
+import androidx.compose.ui.test.hasScrollToNodeAction
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollTo
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.compose.ui.test.performScrollToNode
 import com.ivy.IvyComposeRule
 import com.ivy.common.time.provider.TimeProvider
 import com.ivy.data.CurrencyCode
 import com.ivy.navigation.Navigator
 import com.ivy.navigation.destinations.main.Home
-import com.ivy.wallet.ui.RootActivity
 import kotlinx.coroutines.runBlocking
 
 class HomeScreenRobot(
@@ -35,34 +35,52 @@ class HomeScreenRobot(
     }
 
     fun openDateRangeSheet(timeProvider: TimeProvider): HomeScreenRobot {
-        composeRule
-            .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true)
-            .performClick()
+        runBlocking {
+            composeRule.awaitIdle()
+            // UI shows "July. 2023" but month.name returns "JULY"
+            composeRule
+                .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true, substring = true)
+                .performClick()
+            composeRule.awaitIdle()
+        }
         return this
     }
 
     fun selectMonth(monthName: String): HomeScreenRobot {
-        composeRule
-            .onNodeWithText(monthName)
-            .performClick()
+        runBlocking {
+            composeRule.awaitIdle()
+            // Scroll LazyRow to find the month, then click it
+            composeRule
+                .onNode(horizontalScrollableMatcher())
+                .performScrollToNode(hasText(monthName))
+            composeRule.awaitIdle()
+            composeRule.onNodeWithText(monthName).performClick()
+        }
         return this
     }
 
     fun assertDateIsDisplayed(day: Int, month: String): HomeScreenRobot {
         val paddedDay = day.toString().padStart(2, '0')
         composeRule
-            .onNodeWithText("${month.take(3)}. $paddedDay")
+            .onNodeWithText("${month.take(3)}. $paddedDay", substring = true)
             .assertIsDisplayed()
         return this
     }
 
     fun clickDone(): HomeScreenRobot {
-        composeRule.onNodeWithText("Done").performClick()
+        runBlocking {
+            composeRule.awaitIdle()
+            composeRule.onNodeWithText("Done").performClick()
+            composeRule.awaitIdle()
+        }
         return this
     }
 
     fun clickUpcoming(): HomeScreenRobot {
-        composeRule.onNodeWithText("Upcoming").performClick()
+        runBlocking {
+            composeRule.awaitIdle()
+            composeRule.onNodeWithText("Upcoming", substring = true).performClick()
+        }
         return this
     }
 
@@ -77,9 +95,7 @@ class HomeScreenRobot(
     }
 
     fun openOverdue(): HomeScreenRobot {
-        composeRule
-            .onNodeWithText("Overdue")
-            .performClick()
+        composeRule.onNodeWithText("Overdue").performClick()
         return this
     }
 
@@ -95,7 +111,6 @@ class HomeScreenRobot(
             )
             .onFirst()
             .assertIsDisplayed()
-
         return this
     }
 
@@ -104,4 +119,6 @@ class HomeScreenRobot(
         return this
     }
 
+    private fun horizontalScrollableMatcher() =
+        hasScrollToNodeAction() and SemanticsMatcher.keyIsDefined(SemanticsProperties.HorizontalScrollAxisRange)
 }
