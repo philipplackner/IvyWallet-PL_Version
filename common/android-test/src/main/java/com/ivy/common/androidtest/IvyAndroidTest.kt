@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.test.core.app.ApplicationProvider
 import com.ivy.common.time.provider.TimeProvider
+import com.ivy.core.domain.action.period.SetSelectedPeriodAct
+import com.ivy.core.domain.pure.time.currentMonthlyPeriod
 import com.ivy.core.persistence.IvyWalletCoreDb
 import com.ivy.core.persistence.datastore.dataStore
 import dagger.hilt.android.testing.HiltAndroidRule
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import java.time.LocalDate
@@ -25,6 +26,9 @@ abstract class IvyAndroidTest {
     @Inject
     lateinit var timeProvider: TimeProvider
 
+    @Inject
+    lateinit var setSelectedPeriodAct: SetSelectedPeriodAct
+
     protected lateinit var context: Context
 
     @Before
@@ -34,10 +38,11 @@ abstract class IvyAndroidTest {
         db.clearAllTables()
         clearDataStore()
     }
+    //After method was removed since Room connection pooler once closed can't be reused.
+    //This change was made on Room 2.6
 
-    @After
-    open fun tearDown() {
-        db.close()
+    private fun clearDataStore() = runBlocking {
+        context.dataStore.edit { it.clear() }
     }
 
     protected fun setDate(date: LocalDate) {
@@ -47,9 +52,11 @@ abstract class IvyAndroidTest {
         }
     }
 
-    private fun clearDataStore() = runBlocking {
-        context.dataStore.edit {
-            it.clear()
-        }
+    protected suspend fun refreshPeriod() {
+        val period = currentMonthlyPeriod(
+            startDayOfMonth = 1,
+            timeProvider = timeProvider
+        )
+        setSelectedPeriodAct(period)
     }
 }
