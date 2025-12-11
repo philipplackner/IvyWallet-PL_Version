@@ -112,6 +112,18 @@ abstract class IvyPlugin : Plugin<Project> {
             compose = true
         }
     }
+    private fun androidTest(project: Project) {
+        project.dependencies {
+            androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+            androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
+        }
+        project.configurations.getByName("androidTestImplementation") {
+            exclude(group = "io.mockk", module = "mockk-agent-jvm")
+        }
+        project.androidLibrary().defaultConfig {
+            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
+        }
+    }
 
     private fun setProjectSdkVersions(project: Project) {
         val library = project.androidLibrary()
