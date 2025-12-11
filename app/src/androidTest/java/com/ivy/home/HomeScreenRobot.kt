@@ -130,6 +130,11 @@ class HomeScreenRobot(
     }
 
     fun assertTotalExpensesIs(amount: Int): HomeScreenRobot {
+        // Wait for async data to load from database
+        composeRule.waitUntil(timeoutMillis = 5_000) {
+            composeRule.onAllNodesWithTag("amount", useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
         composeRule
             .onAllNodesWithTag("amount", useUnmergedTree = true)
             .onLast()

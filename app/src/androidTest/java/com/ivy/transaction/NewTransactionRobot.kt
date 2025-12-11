@@ -48,6 +48,7 @@ class NewTransactionRobot(
                 }
             }
             .clickAddCategoryOnNewCategoryModal()
+        composeRule.waitForIdle()
         return this
     }
 
@@ -76,7 +77,11 @@ class NewTransactionRobot(
 
     fun chooseSubCategory(parentName: String, subName: String): NewTransactionRobot {
         composeRule.onNodeWithText(parentName).performClick()
-        composeRule.onNodeWithText(subName).performClick()
+        composeRule.waitUntil(timeoutMillis = 5_000) {
+            composeRule.onAllNodesWithText(subName, useUnmergedTree = true)
+                .fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.onNodeWithText(subName, useUnmergedTree = true).performClick()
         return this
     }
 
