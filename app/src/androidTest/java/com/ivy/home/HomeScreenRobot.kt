@@ -63,7 +63,6 @@ class HomeScreenRobot(
 
     fun assertDateIsDisplayed(day: Int, month: String): HomeScreenRobot {
         val paddedDay = day.toString().padStart(2, '0')
-        composeRule.waitForIdle()
         composeRule
             .onNodeWithText("${month.take(3)}. $paddedDay", substring = true)
             .assertIsDisplayed()
