@@ -1,20 +1,20 @@
 package com.ivy.home
 
-import androidx.compose.ui.test.assertIsDisplayed
+import android.content.Context
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.test.core.app.ApplicationProvider
 import com.ivy.common.androidtest.IvyAndroidTest
 import com.ivy.common.androidtest.test_data.saveAccountWithTransactions
 import com.ivy.common.androidtest.test_data.transactionWithTime
+import com.ivy.core.persistence.datastore.dataStore
 import com.ivy.core.persistence.entity.trn.data.TrnTimeType
 import com.ivy.data.transaction.TransactionType
 import com.ivy.navigation.Navigator
-import com.ivy.navigation.destinations.main.Home
 import com.ivy.wallet.ui.RootActivity
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import java.time.Instant
@@ -28,6 +28,11 @@ class HomeScreenTest: IvyAndroidTest() {
     @get:Rule
     val composeRule = createAndroidComposeRule<RootActivity>()
 
+    override fun setUp() {
+        super.setUp()
+        skipOnboarding()
+    }
+
     @Inject
     lateinit var navigator: Navigator
 
@@ -35,6 +40,7 @@ class HomeScreenTest: IvyAndroidTest() {
     fun testSelectingDateRange() = runBlocking<Unit> {
         val date = LocalDate.of(2023, 7, 23)
         setDate(date)
+        refreshPeriod()
 
         val transaction1 = transactionWithTime(Instant.parse("2023-07-24T09:00:00Z")).copy(
             title = "Transaction1"
@@ -66,6 +72,8 @@ class HomeScreenTest: IvyAndroidTest() {
     fun testGetOverdueTransaction_turnsIntoNormalTransaction() = runBlocking<Unit> {
         val date = LocalDate.of(2023, 7, 15)
         setDate(date)
+        refreshPeriod()
+
         val dueTransaction = transactionWithTime(
             time = date
                 .minusDays(1) // Make due
@@ -85,6 +93,16 @@ class HomeScreenTest: IvyAndroidTest() {
             .clickGet()
             .assertTransactionIsDisplayed(dueTransaction.title!!)
             .assertBalanceIsDisplayed(dueTransaction.amount, dueTransaction.currency)
+    }
+
+    private fun skipOnboarding() {
+        val context: Context = ApplicationProvider.getApplicationContext()
+        runBlocking {
+            val onboardingFinishedKey = booleanPreferencesKey("onboarding_finished")
+            context.dataStore.edit { prefs ->
+                prefs[onboardingFinishedKey] = true
+            }
+        }
     }
 
 }
