@@ -1,9 +1,14 @@
 package com.ivy.home
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import com.ivy.common.androidtest.IvyAndroidTest
 import com.ivy.common.androidtest.test_data.saveAccountWithTransactions
 import com.ivy.common.androidtest.test_data.transactionWithTime
@@ -32,6 +37,7 @@ class HomeScreenTest: IvyAndroidTest() {
     fun testSelectingDateRange() = runBlocking<Unit> {
         val date = LocalDate.of(2023, 7, 23)
         setDate(date)
+        refreshPeriod()
 
         val transaction1 = transactionWithTime(Instant.parse("2023-07-24T09:00:00Z")).copy(
             title = "Transaction1"
@@ -51,14 +57,21 @@ class HomeScreenTest: IvyAndroidTest() {
             navigator.navigate(Home.route)
         }
 
-        composeRule.onNodeWithText(date.month.name, ignoreCase = true).performClick()
+        composeRule
+            .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true, substring = true)
+            .performClick()
 
         composeRule
-            .onNodeWithText("August")
+            .onNode(horizontalScrollableMatcher())
+            .performScrollToNode(hasText("August"))
+
+        composeRule
+            .onNodeWithText("August", ignoreCase = true)
             .assertIsDisplayed()
             .performClick()
-        composeRule.onNodeWithText("Aug. 01").assertIsDisplayed()
-        composeRule.onNodeWithText("Aug. 31").assertIsDisplayed()
+
+        composeRule.onNodeWithText("Aug. 01",substring = true).assertIsDisplayed()
+        composeRule.onNodeWithText("Aug. 31",substring = true).assertIsDisplayed()
 
         composeRule.onNodeWithText("Done").performClick()
 
@@ -69,4 +82,6 @@ class HomeScreenTest: IvyAndroidTest() {
         composeRule.onNodeWithText("Transaction3").assertIsDisplayed()
     }
 
+    private fun horizontalScrollableMatcher() =
+        hasScrollToNodeAction() and SemanticsMatcher.keyIsDefined(SemanticsProperties.HorizontalScrollAxisRange)
 }
