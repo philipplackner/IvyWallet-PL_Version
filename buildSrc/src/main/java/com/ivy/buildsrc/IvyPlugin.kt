@@ -53,6 +53,19 @@ abstract class IvyPlugin : Plugin<Project> {
         }
     }
 
+    private fun androidTest(project: Project) {
+        project.dependencies {
+            androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+            androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
+        }
+        project.configurations.getByName("androidTestImplementation") {
+            exclude(group = "io.mockk", module = "mockk-agent-jvm")
+        }
+        project.androidLibrary().defaultConfig {
+            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
+        }
+    }
+
     private fun configureJavaToolchain(project: Project) {
         // Configure Java toolchain to work with newer Gradle and Java versions
         project.extensions.configure<JavaPluginExtension> {
@@ -110,18 +123,6 @@ abstract class IvyPlugin : Plugin<Project> {
         
         project.androidLibrary().buildFeatures {
             compose = true
-        }
-    }
-    private fun androidTest(project: Project) {
-        project.dependencies {
-            androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
-            androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
-        }
-        project.configurations.getByName("androidTestImplementation") {
-            exclude(group = "io.mockk", module = "mockk-agent-jvm")
-        }
-        project.androidLibrary().defaultConfig {
-            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
         }
     }
 
