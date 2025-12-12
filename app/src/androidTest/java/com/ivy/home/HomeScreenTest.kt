@@ -32,6 +32,7 @@ class HomeScreenTest: IvyAndroidTest() {
     fun testSelectingDateRange() = runBlocking<Unit> {
         val date = LocalDate.of(2023, 7, 23)
         setDate(date)
+        refreshPeriod()
 
         val transaction1 = transactionWithTime(Instant.parse("2023-07-24T09:00:00Z")).copy(
             title = "Transaction1"

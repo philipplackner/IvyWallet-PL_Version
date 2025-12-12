@@ -25,6 +25,9 @@ class DatePickerViewModelTest: IvyAndroidTest() {
 
     override fun setUp() {
         super.setUp()
+        // Making sure, the test runs with a month != February, so
+        // February can be selected
+        setDate(LocalDate.of(2023, 1, 1))
         viewModel = DatePickerViewModel(
             appContext = context,
             timeProvider = timeProvider
@@ -33,9 +36,7 @@ class DatePickerViewModelTest: IvyAndroidTest() {
 
     @Test
     fun testSelectingDate() = runTest {
-        // Making sure, the test runs with a month != February, so
-        // February can be selected
-        setDate(LocalDate.of(2023, 1, 1))
+
         viewModel.uiState.test {
             awaitItem() // Skip initial emission
 
