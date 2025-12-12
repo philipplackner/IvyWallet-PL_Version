@@ -1,15 +1,21 @@
 package com.ivy.home
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onLast
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.compose.ui.test.performScrollToNode
 import com.ivy.IvyComposeRule
 import com.ivy.common.time.provider.TimeProvider
 import com.ivy.navigation.Navigator
 import com.ivy.navigation.destinations.main.Home
-import com.ivy.wallet.ui.RootActivity
 import kotlinx.coroutines.runBlocking
 
 class HomeScreenRobot(
@@ -31,22 +37,34 @@ class HomeScreenRobot(
 
     fun openDateRangeSheet(timeProvider: TimeProvider): HomeScreenRobot {
         composeRule
-            .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true)
+            .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true, substring = true)
             .performClick()
         return this
     }
 
     fun selectMonth(monthName: String): HomeScreenRobot {
+        // Scroll to the month in horizontal LazyRow (may be off-screen)
         composeRule
-            .onNodeWithText(monthName)
+            .onNode(hasHorizontalScrollAction())
+            .performScrollToNode(hasText(monthName))
+
+        composeRule
+            .onNodeWithText(monthName, ignoreCase = true)
+            .assertIsDisplayed()
             .performClick()
         return this
+    }
+
+    private fun hasHorizontalScrollAction(): SemanticsMatcher {
+        return hasScrollAction() and SemanticsMatcher.keyIsDefined(
+            SemanticsProperties.HorizontalScrollAxisRange
+        )
     }
 
     fun assertDateIsDisplayed(day: Int, month: String): HomeScreenRobot {
         val paddedDay = day.toString().padStart(2, '0')
         composeRule
-            .onNodeWithText("${month.take(3)}. $paddedDay")
+            .onNodeWithText("${month.take(3)}. $paddedDay", substring = true)
             .assertIsDisplayed()
         return this
     }
