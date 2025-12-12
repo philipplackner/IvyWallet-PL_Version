@@ -39,8 +39,6 @@ abstract class IvyAndroidTest {
         clearDataStore()
     }
     //After method was removed since Room connection pooler once closed can't be reused.
-    //This change was made on Room 2.6
-
     private fun clearDataStore() = runBlocking {
         context.dataStore.edit { it.clear() }
     }
@@ -52,6 +50,7 @@ abstract class IvyAndroidTest {
         }
     }
 
+    //Refresh Ui Composables after setting date for testing
     protected suspend fun refreshPeriod() {
         val period = currentMonthlyPeriod(
             startDayOfMonth = 1,
