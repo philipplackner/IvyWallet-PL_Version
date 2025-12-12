@@ -107,7 +107,6 @@ class HomeScreenRobot(
             )
             .onFirst()
             .assertIsDisplayed()
-
         return this
     }
 
@@ -115,5 +114,4 @@ class HomeScreenRobot(
         composeRule.onNodeWithText("Get").performClick()
         return this
     }
-
 }

@@ -1,9 +1,14 @@
 package com.ivy.home
 
+import android.content.Context
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.test.core.app.ApplicationProvider
 import com.ivy.common.androidtest.IvyAndroidTest
 import com.ivy.common.androidtest.test_data.saveAccountWithTransactions
 import com.ivy.common.androidtest.test_data.transactionWithTime
+import com.ivy.core.persistence.datastore.dataStore
 import com.ivy.core.persistence.entity.trn.data.TrnTimeType
 import com.ivy.data.transaction.TransactionType
 import com.ivy.navigation.Navigator
@@ -22,6 +27,11 @@ class HomeScreenTest: IvyAndroidTest() {
 
     @get:Rule
     val composeRule = createAndroidComposeRule<RootActivity>()
+
+    override fun setUp() {
+        super.setUp()
+        skipOnboarding()
+    }
 
     @Inject
     lateinit var navigator: Navigator
@@ -62,6 +72,8 @@ class HomeScreenTest: IvyAndroidTest() {
     fun testGetOverdueTransaction_turnsIntoNormalTransaction() = runBlocking<Unit> {
         val date = LocalDate.of(2023, 7, 15)
         setDate(date)
+        refreshPeriod()
+
         val dueTransaction = transactionWithTime(
             time = date
                 .minusDays(1) // Make due
@@ -81,6 +93,16 @@ class HomeScreenTest: IvyAndroidTest() {
             .clickGet()
             .assertTransactionIsDisplayed(dueTransaction.title!!)
             .assertBalanceIsDisplayed(dueTransaction.amount, dueTransaction.currency)
+    }
+
+    private fun skipOnboarding() {
+        val context: Context = ApplicationProvider.getApplicationContext()
+        runBlocking {
+            val onboardingFinishedKey = booleanPreferencesKey("onboarding_finished")
+            context.dataStore.edit { prefs ->
+                prefs[onboardingFinishedKey] = true
+            }
+        }
     }
 
 }
