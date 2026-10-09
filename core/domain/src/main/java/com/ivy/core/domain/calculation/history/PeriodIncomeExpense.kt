@@ -14,7 +14,7 @@ data class PeriodIncomeExpense(
     val expense: Value
 )
 
-context(ExchangeRates)
+context(exchangeRates: ExchangeRates)
 fun exchangeHistoryRawStats(
     historyStats: RawStats
 ): PeriodIncomeExpense = TODO()

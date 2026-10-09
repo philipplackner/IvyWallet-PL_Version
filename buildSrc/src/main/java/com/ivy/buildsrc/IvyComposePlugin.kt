@@ -13,9 +13,6 @@ abstract class IvyComposePlugin : IvyPlugin() {
         )
 
         val library = project.androidLibrary()
-        library.composeOptions {
-            kotlinCompilerExtensionVersion = Versions.composeCompilerVersion
-        }
         library.buildFeatures {
             compose = true
         }

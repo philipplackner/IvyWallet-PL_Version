@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
-import com.ivy.common.BuildConfig
 import com.ivy.core.ui.GlobalProvider
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber

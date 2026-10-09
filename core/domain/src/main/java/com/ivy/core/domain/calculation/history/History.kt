@@ -11,7 +11,7 @@ fun groupHistoryTransactions(
     transactions: List<Transaction>
 ): SortedMap<RawDateDivider, Sorted<Transaction>> = TODO()
 
-context(ExchangeRates)
+context(exchangeRates: ExchangeRates)
 fun exchangeHistory(
     rawMap: SortedMap<RawDateDivider, Sorted<Transaction>>
 ): SortedMap<DateDivider, Sorted<Transaction>> = TODO()

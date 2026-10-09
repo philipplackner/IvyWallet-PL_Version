@@ -40,7 +40,7 @@ object Project {
 object Versions {
     //https://kotlinlang.org/docs/releases.html#release-details
     //WARNING: Version must match in buildSrc build.gradle.kts
-    const val kotlin = "1.9.25"
+    const val kotlin = "2.4.21"
 
     //https://github.com/Kotlin/kotlinx.coroutines
     const val coroutines = "1.7.3"
@@ -48,9 +48,6 @@ object Versions {
     // region Compose
     //https://developer.android.com/jetpack/androidx/releases/compose-bom
     const val composeBom = "2024.09.03"
-
-    //https://developer.android.com/jetpack/androidx/releases/compose-compiler
-    const val composeCompilerVersion = "1.5.15"
 
     //https://developer.android.com/jetpack/compose/navigation
     const val navigationCompose = "2.8.2"
@@ -79,7 +76,7 @@ object Versions {
 
     //https://developer.android.com/training/dependency-injection/hilt-android
     //WARNING: Update hilt gradle plugin from buildSrc
-    const val hilt = "2.52"
+    const val hilt = "2.60.1"
 
     //https://mvnrepository.com/artifact/androidx.hilt/hilt-compiler?repo=google
     const val hiltX = "1.2.0"
@@ -109,7 +106,7 @@ object Versions {
     const val lifecycle = "2.8.6"
 
     //https://developer.android.com/jetpack/androidx/releases/room
-    const val room = "2.6.1"
+    const val room = "2.8.5"
 
     //https://github.com/square/retrofit
     const val retrofit = "2.11.0"

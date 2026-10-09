@@ -5,10 +5,9 @@ import com.ivy.buildsrc.Testing
 
 plugins {
     `android-library`
-    `kotlin-android`
     id("com.google.devtools.ksp") // for Room DB
 
-    id("de.mannodermaus.android-junit5") version "1.9.3.0"
+    id("de.mannodermaus.android-junit5") version "2.0.1"
 }
 
 apply<com.ivy.buildsrc.IvyPlugin>()
