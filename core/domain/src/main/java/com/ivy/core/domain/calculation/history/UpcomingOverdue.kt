@@ -37,7 +37,7 @@ private fun groupDueTransactions(
     dueTransactions: List<Transaction>
 ): SortedMap<RawDueDivider, Sorted<Transaction>> = TODO()
 
-context(ExchangeRates)
+context(exchangeRates: ExchangeRates)
 fun exchangeDue(
     rawMap: SortedMap<RawDueDivider, Sorted<Transaction>>
 ): SortedMap<DueDivider, Sorted<Transaction>> = TODO()

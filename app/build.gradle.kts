@@ -2,13 +2,12 @@ import com.ivy.buildsrc.*
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("com.google.devtools.ksp")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("dagger.hilt.android.plugin")
-    id("de.mannodermaus.android-junit5") version "1.9.3.0"
+    id("de.mannodermaus.android-junit5") version "2.0.1"
 }
 
 android {
@@ -94,17 +93,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs = freeCompilerArgs + listOf("-Xskip-prerelease-check")
-    }
-
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = com.ivy.buildsrc.Versions.composeCompilerVersion
+        buildConfig = true
+        resValues = true
     }
 
     lint {
@@ -181,4 +173,11 @@ dependencies {
     DataStore(api = false)
 
     ThirdParty()
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        freeCompilerArgs.add("-Xskip-prerelease-check")
+    }
 }

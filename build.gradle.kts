@@ -2,16 +2,15 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("android-reporting")
     // Run with:
     // ./gradlew dependencyUpdates // Simple report in the console
     // ./gradlew dependencyUpdates -DoutputFormatter=html,json,xml // Report in console & generate files accordingly
-    id("com.github.ben-manes.versions") version "0.39.0"
+    id("com.github.ben-manes.versions") version "0.54.0"
 }
 
 tasks {
     register("clean", Delete::class) {
-        delete(rootProject.buildDir)
+        delete(rootProject.layout.buildDirectory)
     }
 
     withType<DependencyUpdatesTask> {
@@ -36,7 +35,7 @@ tasks.named<DependencyUpdatesTask>("dependencyUpdates").configure {
 // This has been tested thoroughly by community
 fun isNonStable(version: String): Boolean {
     val stableKeyword =
-        listOf("RELEASE", "FINAL", "GA", "RC").any { version.toUpperCase().contains(it) }
+        listOf("RELEASE", "FINAL", "GA", "RC").any { version.uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()

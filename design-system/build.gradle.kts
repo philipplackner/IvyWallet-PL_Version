@@ -5,11 +5,9 @@ import com.ivy.buildsrc.Lifecycle
 
 plugins {
     `android-library`
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-android")
     id("com.google.devtools.ksp")
 
-    id("de.mannodermaus.android-junit5") version "1.9.3.0"
+    id("de.mannodermaus.android-junit5") version "2.0.1"
 }
 
 apply<com.ivy.buildsrc.IvyComposePlugin>()

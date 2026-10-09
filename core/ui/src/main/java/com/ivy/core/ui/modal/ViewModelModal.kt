@@ -123,7 +123,7 @@ fun <State, UiState, Event> BoxScope.ViewModelModal(
             val keyboardController = LocalSoftwareKeyboardController.current
             ModalActionsRow(
                 Actions = {
-                    actions(state, onEvent = { viewModel?.onEvent(it) })
+                    actions(state) { viewModel?.onEvent(it) }
                 },
                 onClose = {
                     keyboardController?.hide()

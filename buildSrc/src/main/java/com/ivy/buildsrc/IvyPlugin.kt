@@ -4,11 +4,13 @@ import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.tasks.testing.Test
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.exclude
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 abstract class IvyPlugin : Plugin<Project> {
@@ -21,7 +23,10 @@ abstract class IvyPlugin : Plugin<Project> {
         setProjectSdkVersions(project)
 
         test(project)
+        // Gradle 9 fails test tasks with no tests; most modules have none but AGP still wires test inputs.
+        project.tasks.withType<Test>().configureEach { failOnNoDiscoveredTests.set(false) }
         androidTest(project)
+        excludeDuplicateMetaInf(project)
         lint(project)
         kspSourceSets(project)
     }
@@ -50,6 +55,12 @@ abstract class IvyPlugin : Plugin<Project> {
         }
     }
 
+    private fun excludeDuplicateMetaInf(project: Project) {
+        project.androidLibrary().packaging {
+            resources.excludes.addAll(listOf("META-INF/AL2.0", "META-INF/LGPL2.1", "META-INF/DEPENDENCIES"))
+        }
+    }
+
     /**
      * Global lint configuration
      */
@@ -71,7 +82,7 @@ abstract class IvyPlugin : Plugin<Project> {
     private fun applyPlugins(project: Project) {
         project.apply {
             plugin("android-library")
-            plugin("kotlin-android")
+            plugin("org.jetbrains.kotlin.plugin.compose")
             plugin("com.google.devtools.ksp")
             plugin("dagger.hilt.android.plugin")
 
@@ -86,20 +97,10 @@ abstract class IvyPlugin : Plugin<Project> {
     }
 
     private fun addKotlinCompilerArgs(project: Project) {
-        project.allprojects {
-            allprojects {
-                tasks.withType(KotlinCompile::class).all {
-                    with(kotlinOptions) {
-                        jvmTarget = "17"
-                        freeCompilerArgs = freeCompilerArgs + listOf("-Xcontext-receivers")
-                        //Suppress Jetpack Compose versions compiler incompatibility, do NOT do it
-//                        freeCompilerArgs = freeCompilerArgs + listOf(
-//                            "-P",
-//                            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-//                        )
-                        freeCompilerArgs = freeCompilerArgs + listOf("-Xskip-prerelease-check")
-                    }
-                }
+        project.tasks.withType<KotlinCompile>().configureEach {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_17)
+                freeCompilerArgs.add("-Xskip-prerelease-check")
             }
         }
     }
@@ -108,10 +109,6 @@ abstract class IvyPlugin : Plugin<Project> {
         project.androidLibrary().compileOptions {
             sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
             targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
-        }
-        
-        project.androidLibrary().composeOptions {
-            kotlinCompilerExtensionVersion = "1.5.15"
         }
         
         project.androidLibrary().buildFeatures {

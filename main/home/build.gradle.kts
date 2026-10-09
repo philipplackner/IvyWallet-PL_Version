@@ -3,7 +3,7 @@ import com.ivy.buildsrc.Hilt
 plugins {
     `android-library`
 
-    id("de.mannodermaus.android-junit5") version "1.9.3.0"
+    id("de.mannodermaus.android-junit5") version "2.0.1"
 
 }
 
